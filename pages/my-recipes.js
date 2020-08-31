@@ -1,13 +1,10 @@
-import Head from 'next/head'
-import MainNav from '../components/main-nav'
-import Layout from '../components/layout'
+import Layout from '../components/layout';
 
 export default function MyRecipes() {
     return (
-        <Layout>
-            <Head>
-                <title>My Recipes</title>
-            </Head>
+        <Layout
+            pageTitle='My Recipes'
+            pageDescription='Browse recipes that you created'>
             <div>
                 My Recipes!
             </div>

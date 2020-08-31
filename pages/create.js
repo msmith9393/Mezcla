@@ -1,10 +1,10 @@
-import Head from 'next/head'
-import MainNav from '../components/main-nav'
-import Layout from '../components/layout'
+import Layout from '../components/layout';
 
 export default function Create() {
     return (
-        <Layout>
+        <Layout
+            pageTitle='Create'
+            pageDescription='Create a new recipe'>
             <Head>
                 <title>Create Recipe</title>
             </Head>

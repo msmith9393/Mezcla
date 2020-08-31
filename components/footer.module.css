@@ -1,0 +1,77 @@
+/* $orangeYellow = #FEC20F;
+$blueGreen = #037272
+$lightGrey = #F4F5FA
+$darkGrey = #2C2C2C */
+
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #2C2C2C;
+    color: white;
+    border: 1px solid blue;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        justify-content: center;
+    }
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    width: 33.33%;
+}
+
+@media (max-width: 768px) {
+    .item {
+        width: 100%;
+    }
+}
+
+.item h4,
+.footerLink {
+    text-align: center;
+    padding: 8px;
+}
+
+.item h4 {
+    text-align: center;
+    padding: 16px;
+}
+
+.item p  {
+    padding: 8px 16px;
+}
+
+.footerLink,
+.item p  {
+    font-size: 0.8rem;
+    font-weight: 100;
+    cursor: pointer;
+}
+
+.footerLinkActive,
+.footerLink:focus,
+.footerLink:hover {
+    font-weight: 500;
+}
+
+.connectIconContainer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+}
+
+.connectIcon {
+    width: 40px;
+    height: 40px;
+    padding: 16px;
+    cursor: pointer;
+}

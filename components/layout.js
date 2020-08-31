@@ -1,26 +1,25 @@
-import Head from 'next/head'
-import MainNav from '../components/main-nav'
+import Head from 'next/head';
+import MainNav from '../components/main-nav';
+import Footer from '../components/footer';
 
-export const siteTitle = 'Mezcla Recipes';
-
-function Layout({ children }) {
+function Layout({ children, pageTitle = '', pageDescription = '', image = null }) {
     return (
         <div>
             <Head>
-                <link rel='icon' href='/favicon.ico' />
+                <title>{pageTitle}</title>
+                <meta name='og:title' content={pageTitle} />
                 <meta
                     name='description'
-                    content='Site where everyone share and enjoy their favorite recipes together'
+                    content={pageDescription}
                 />
                 <meta
                     property='og:image'
-                    content={'Image To Go Here'}
+                    content={image}
                 />
-                <meta name='og:title' content={siteTitle} />
-                <meta name='viewport' content='width=device-width, initial-scale=1.0' />
             </Head>
             <MainNav />
             <main>{children}</main>
+            <Footer />
         </div>
     );
 }

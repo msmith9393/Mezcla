@@ -9,13 +9,10 @@ $darkGrey = #2C2C2C */
     background: #FEC20F;
     margin: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.mainNavOpen {
     position: fixed;
     z-index: 1;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .mainNavIconMobile {
@@ -46,7 +43,14 @@ $darkGrey = #2C2C2C */
 .mainNavLinkDesktop {
     margin-right: 64px;
     text-align: center;
+    cursor: pointer;
     border-bottom: 2px solid transparent;
+}
+
+@media (max-width: 992px) {
+    .mainNavLinkDesktop {
+        margin-right: 32px;
+    }
 }
 
 .mainNavLinkDesktopActive,
@@ -73,17 +77,22 @@ $darkGrey = #2C2C2C */
 }
 
 .mainNavLinksMobileOpen {
-    position: fixed;
     transform: translateX(100%);
 }
 
-.mainNavLinkMobile {
+.mainNavLinkMobile,
+.mainNavLogOutLinkMobile {
     border-bottom: 1px solid #2C2C2C;
     margin: 0 16px;
     height: 100px;
     line-height: 100px;
     text-align: center;
     color: #1C1F4C;
+}
+
+.mainNavLogOutLinkMobile {
+    cursor: pointer;
+    border-bottom: none;
 }
 
 .logo {

@@ -1,13 +1,10 @@
-import Head from 'next/head'
-import MainNav from '../components/main-nav'
-import Layout from '../components/layout'
+import Layout from '../components/layout';
 
 export default function AllRecipes() {
     return (
-        <Layout>
-            <Head>
-                <title>All Recipes</title>
-            </Head>
+        <Layout
+            pageTitle='All Recipes'
+            pageDescription='Search all recipes'>
             <div>
                 All Recipes!
             </div>

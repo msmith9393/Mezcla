@@ -1,12 +1,10 @@
-import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
+import Layout from '../components/layout';
 
 export default function Home() {
     return (
-        <Layout>
-            <Head>
-                <title>{siteTitle}</title>
-            </Head>
+        <Layout
+            pageTitle='Mezcla Recipe'
+            pageDescription='Homepage for Mezcla recipes'>
             <div className='container'>
                 <main>
                     <h1 className='title'>
