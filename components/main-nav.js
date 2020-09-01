@@ -18,6 +18,12 @@ export default function MainNav() {
     const isSSR = typeof window === 'undefined';
 
     React.useEffect(() => {
+        if (open) {
+            document.getElementById('html').classList.add('no-scroll');
+        } else {
+            document.getElementById('html').classList.remove('no-scroll');
+        }
+
         function closeMainNav() {
             if (open && window.innerWidth >= 769) {
                 setOpen(false);
@@ -26,7 +32,10 @@ export default function MainNav() {
 
         window.addEventListener('resize', closeMainNav);
 
-        return () => window.removeEventListener('resize', closeMainNav);
+        return () => {
+            document.body.classList.remove('no-scroll');
+            window.removeEventListener('resize', closeMainNav);
+        };
     });
 
     return (
@@ -60,18 +69,20 @@ export default function MainNav() {
                         <a className={styles.mainNavLinkDesktop}>Log Out</a>
                     </div>
                 </div>
-                <div className={classNames(styles.mainNavLinksMobile, {
-                    [styles.mainNavLinksMobileOpen]: open,
+                <div className={classNames(styles.mainNavLinksMobileContainer, {
+                    [styles.mainNavLinksMobileContainerOpen]: open,
                 })}>
-                    <Search />
-                    {mainNavLinks.map(({ pathname, title }, index) => (
-                        <Link key={index} href={pathname}>
-                            <a className={classNames(styles.mainNavLinkMobile, {
-                                [styles.mainNavLinkMobileActive]: router.pathname === pathname,
-                            })}>{title}</a>
-                        </Link>
-                    ))}
-                    <a className={styles.mainNavLogOutLinkMobile}>Log Out</a>
+                    <div className={styles.mainNavLinksMobile}>
+                        <Search />
+                        {mainNavLinks.map(({ pathname, title }, index) => (
+                            <Link key={index} href={pathname}>
+                                <a className={classNames(styles.mainNavLinkMobile, {
+                                    [styles.mainNavLinkMobileActive]: router.pathname === pathname,
+                                })}>{title}</a>
+                            </Link>
+                        ))}
+                        <a className={styles.mainNavLogOutLinkMobile}>Log Out</a>
+                    </div>
                 </div>
             </nav>
         </header>

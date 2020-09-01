@@ -8,12 +8,9 @@ $darkGrey = #2C2C2C */
     flex-wrap: nowrap;
     justify-content: space-between;
     align-items: flex-start;
-    position: absolute;
-    bottom: 0;
     width: 100%;
     background: #2C2C2C;
     color: white;
-    border: 1px solid blue;
 }
 
 @media (max-width: 768px) {
@@ -54,6 +51,9 @@ $darkGrey = #2C2C2C */
 .item p  {
     font-size: 0.8rem;
     font-weight: 100;
+}
+
+.footerLink {
     cursor: pointer;
 }
 
@@ -61,6 +61,7 @@ $darkGrey = #2C2C2C */
 .footerLink:focus,
 .footerLink:hover {
     font-weight: 500;
+    color: #2EC3CC;
 }
 
 .connectIconContainer {
@@ -74,4 +75,14 @@ $darkGrey = #2C2C2C */
     height: 40px;
     padding: 16px;
     cursor: pointer;
+    fill: white;
+}
+
+.connectIcon:hover {
+    fill: #2EC3CC;
+    transform: translateY(-3px);
+}
+
+.connectIcon:hover .emailClassStroke {
+    stroke: #2EC3CC;
 }

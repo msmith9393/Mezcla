@@ -2,7 +2,7 @@ import Head from 'next/head';
 import MainNav from '../components/main-nav';
 import Footer from '../components/footer';
 
-function Layout({ children, pageTitle = '', pageDescription = '', image = null }) {
+export default function Layout({ children, pageTitle = '', pageDescription = '', image = null }) {
     return (
         <div>
             <Head>
@@ -18,10 +18,8 @@ function Layout({ children, pageTitle = '', pageDescription = '', image = null }
                 />
             </Head>
             <MainNav />
-            <main>{children}</main>
+            <main className='main'>{children}</main>
             <Footer />
         </div>
     );
 }
-
-export default Layout;

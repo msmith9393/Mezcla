@@ -1,6 +1,6 @@
 import styles from './search.module.css';
 
-function Search() {
+export default function Search() {
     return (
         <form role='search' action='/' method='get' className={styles.container}>
             <label htmlFor='header-search'>
@@ -13,5 +13,3 @@ function Search() {
         </form>
     );
 }
-
-export default Search;

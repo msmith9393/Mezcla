@@ -5,9 +5,6 @@ export default function Create() {
         <Layout
             pageTitle='Create'
             pageDescription='Create a new recipe'>
-            <Head>
-                <title>Create Recipe</title>
-            </Head>
             <div>
                 Create Recipe!
             </div>

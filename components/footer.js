@@ -4,7 +4,7 @@ import Link from 'next/link';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { mainNavLinks } from './main-nav';
-
+import { LinkedinIcon, EmailIcon, GithubIcon } from './icons';
 export default function Footer() {
     const router = useRouter();
 
@@ -28,9 +28,9 @@ export default function Footer() {
             <div className={styles.item}>
                 <h4 className='headingMd'>Connect</h4>
                 <div className={styles.connectIconContainer}>
-                    <img src='/linkedin.png' alt='Linkedin Icon' className={styles.connectIcon} />
-                    <img src='/gmail.png' alt='Email Icon' className={styles.connectIcon} />
-                    <img src='/github.png' alt='Github Icon' className={styles.connectIcon} />
+                    <LinkedinIcon className={styles.connectIcon} />
+                    <EmailIcon emailClassStroke={styles.emailClassStroke} className={styles.connectIcon} />
+                    <GithubIcon className={styles.connectIcon} />
                 </div>
             </div>
         </footer>
