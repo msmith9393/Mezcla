@@ -1,0 +1,80 @@
+/* $orangeYellow = #FEC20F;
+$blueGreen = #037272
+$lightGrey = #F4F5FA
+$darkGrey = #2C2C2C
+$darkBlue = #1C1F4C
+$teal: #00848C
+$hoverBlue= #2EC3CC */
+
+.headingXl {
+    font-size: 2rem;
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: -0.05rem;
+    margin: 1rem 0;
+}
+
+.headingLg {
+    font-size: 1.5rem;
+    line-height: 1.4;
+    margin: 1rem 0;
+}
+
+.headingMd {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 1rem 0;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.center {
+    text-align: center;
+}
+
+.link {
+    border-bottom: 1px solid #037272;
+    color: #037272;
+    cursor: pointer;
+}
+
+.link:hover {
+    border-bottom: 1px solid #2EC3CC;
+    color: #2EC3CC;
+}
+
+.line-break {
+    border: 1px solid #2EC3CC;
+    margin: 32px 0;
+}
+
+.button {
+    border: 2px solid #037272;
+    color: #037272;
+    border-radius: 5px;
+    height: 44px;
+    background: transparent;
+    min-width: 150px;
+    cursor: pointer;
+    display: block;
+    margin: 8px;
+}
+
+.button-filled {
+    background: #037272;
+    color: white;
+}
+
+.button-center {
+    margin: 8px auto;
+}
+
+.button:hover {
+    border: 2px solid #2EC3CC;
+    color: #2EC3CC;
+}
+
+.button-filled:hover {
+    color: white;
+    background: #2EC3CC;
+}

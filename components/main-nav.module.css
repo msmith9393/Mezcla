@@ -1,8 +1,3 @@
-/* $orangeYellow = #FEC20F;
-$blueGreen = #037272
-$lightGrey = #F4F5FA
-$darkGrey = #2C2C2C */
-
 .mainNav {
     height: 64px;
     width: 100%;
@@ -100,7 +95,6 @@ $darkGrey = #2C2C2C */
     height: 100px;
     line-height: 100px;
     text-align: center;
-    color: #1C1F4C;
 }
 
 .mainNavLogOutLinkMobile {

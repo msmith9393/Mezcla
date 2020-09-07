@@ -1,73 +1,8 @@
-/* $orangeYellow = #FEC20F;
-$blueGreen = #037272
-$lightGrey = #F4F5FA
-$darkGrey = #2C2C2C */
-
 .container {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    background: #2C2C2C;
-    color: white;
-}
-
-@media (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        justify-content: center;
-    }
-}
-
-.item {
-    display: flex;
-    flex-direction: column;
-    width: 33.33%;
-}
-
-@media (max-width: 768px) {
-    .item {
-        width: 100%;
-    }
-}
-
-.item h4,
-.footerLink {
-    text-align: center;
-    padding: 8px;
-}
-
-.item h4 {
-    text-align: center;
-    padding: 16px;
-}
-
-.item p  {
-    padding: 8px 16px;
-}
-
-.footerLink,
-.item p  {
-    font-size: 0.8rem;
-    font-weight: 100;
-}
-
-.footerLink {
-    cursor: pointer;
-}
-
-.footerLinkActive,
-.footerLink:focus,
-.footerLink:hover {
-    font-weight: 500;
-    color: #2EC3CC;
-}
-
-.connectIconContainer {
-    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    flex-wrap: nowrap;
+    background: #2C2C2C;
 }
 
 .connectIcon {
@@ -76,6 +11,12 @@ $darkGrey = #2C2C2C */
     padding: 16px;
     cursor: pointer;
     fill: white;
+}
+
+@media (max-width: 768px) {
+    .connectIcon {
+        width: 32px;
+    }
 }
 
 .connectIcon:hover {
