@@ -13,11 +13,27 @@ export default function LogIn() {
     return (
         <Layout
             pageTitle={isLogInPage ? 'Log In' : 'Sign Up'}
-            pageDescription={isLogInPage ? 'Log In to see your favorite recipes' : 'Sign Up to see your favorite recipes'}>
+            pageDescription={isLogInPage ? 'Log In to see your favorite recipes' : 'Sign Up to see your favorite recipes'}
+            image=""
+        >
             <div>
-                <LogInForm
-                    isLogInPage={isLogInPage} />
-                <div class='center'>{isLogInPage ? 'Don\'t have an account? ' : 'Already have an account? '}<span onClick={switchPages} className='link'>{isLogInPage ? 'Sign Up' : 'Log In'}</span></div>
+                <LogInForm isLogInPage={isLogInPage} />
+                <div className="center">
+                    {isLogInPage ? 'Don\'t have an account? ' : 'Already have an account? '}
+                    <span
+                        role="button"
+                        tabIndex="0"
+                        onClick={switchPages}
+                        onKeyPress={(event) => {
+                            if (event.keycode === 13) {
+                                switchPages();
+                            }
+                        }}
+                        className="link"
+                    >
+                        {isLogInPage ? 'Sign Up' : 'Log In'}
+                    </span>
+                </div>
             </div>
         </Layout>
     );

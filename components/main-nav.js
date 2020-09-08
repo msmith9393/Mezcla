@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import styles from './main-nav.module.css';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import styles from './main-nav.module.css';
 import Search from './search';
 
 export const mainNavLinks = [
@@ -15,7 +15,6 @@ export const mainNavLinks = [
 export default function MainNav() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
-    const isSSR = typeof window === 'undefined';
 
     React.useEffect(() => {
         if (open) {
@@ -40,30 +39,42 @@ export default function MainNav() {
 
     return (
         <header>
-            <nav id='main-nav' aria-label='Main'>
+            <nav id="main-nav" aria-label="Main">
                 <div className={styles.mainNav}>
                     <div
+                        role="button"
+                        tabIndex="0"
+                        aria-pressed={open ? 'true' : 'false'}
                         className={styles.mainNavIconMobile}
-                        onClick={() => setOpen(!open)}>
+                        onClick={() => setOpen(!open)}
+                        onKeyDown={(event) => {
+                            if (event.keycode === 13) {
+                                setOpen(!open);
+                            }
+                        }}
+                    >
                         <img
                             src={open ? '/close.svg' : '/hamburger.svg'}
                             alt={open ? 'Close Icon' : 'Open Icon'}
                         />
                     </div>
-                    <Link href='/'>
+                    <Link href="/">
                         <a className={styles.logo}>
                             <img
-                                src='/logo.png'
-                                alt='Mezcla Logo'
+                                src="/logo.png"
+                                alt="Mezcla Logo"
                             />
                         </a>
                     </Link>
                     <div className={styles.mainNavLinksDesktop}>
-                        {mainNavLinks.map(({ pathname, title }, index) => (
-                            <Link key={index} href={pathname}>
+                        {mainNavLinks.map(({ pathname, title }) => (
+                            <Link key={title} href={pathname}>
                                 <a className={classNames(styles.mainNavLinkDesktop, {
                                     [styles.mainNavLinkDesktopActive]: router.pathname === pathname,
-                                })}>{title}</a>
+                                })}
+                                >
+                                    {title}
+                                </a>
                             </Link>
                         ))}
                         <a className={styles.mainNavLinkDesktop}>Log Out</a>
@@ -71,14 +82,18 @@ export default function MainNav() {
                 </div>
                 <div className={classNames(styles.mainNavLinksMobileContainer, {
                     [styles.mainNavLinksMobileContainerOpen]: open,
-                })}>
+                })}
+                >
                     <div className={styles.mainNavLinksMobile}>
                         <Search />
-                        {mainNavLinks.map(({ pathname, title }, index) => (
-                            <Link key={index} href={pathname}>
+                        {mainNavLinks.map(({ pathname, title }) => (
+                            <Link key={title} href={pathname}>
                                 <a className={classNames(styles.mainNavLinkMobile, {
                                     [styles.mainNavLinkMobileActive]: router.pathname === pathname,
-                                })}>{title}</a>
+                                })}
+                                >
+                                    {title}
+                                </a>
                             </Link>
                         ))}
                         <a className={styles.mainNavLogOutLinkMobile}>Log Out</a>

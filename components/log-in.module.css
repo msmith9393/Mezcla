@@ -22,7 +22,7 @@
 }
 
 @media (min-width: 768px) {
-    .inputContainerHalfDesktop {
+    .inputHalfDesktop {
         width: 48%;
     }
 }

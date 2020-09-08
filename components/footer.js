@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './footer.module.css';
-import Link from 'next/link';
-import classNames from 'classnames';
-import { LinkedinIcon, EmailIcon, GithubIcon, YouTubeIcon, InstagramIcon } from './icons';
+import {
+    LinkedinIcon,
+    EmailIcon,
+    GithubIcon,
+    YouTubeIcon,
+    InstagramIcon,
+} from './icons';
 
 export default function Footer() {
     return (
