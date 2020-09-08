@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint  ./{components,pages}/*.js"
+    "lint": "eslint  ./{components,pages}/*.js",
     "lint.fix": "eslint --fix ./{components,pages}/*.js"
   },
   "dependencies": {
@@ -34,19 +34,8 @@
   },
   "lint-staged": {
     "./{components,pages}/*.js": [
-        "eslint . --fix", "git add"
-    ],
+      "eslint . --fix",
+      "git add"
+    ]
   }
 }
-
-"lint-staged": {
-
-  "src/**/*.scss": [
-    "stylelint --syntax scss --fix", "git add"
-  ],
-},
-"husky": {
-  "hooks": {
-    "pre-commit": "lint-staged"
-  }
-},
