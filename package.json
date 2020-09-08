@@ -34,8 +34,7 @@
   },
   "lint-staged": {
     "./{components,pages}/*.js": [
-      "eslint . --fix",
-      "git add"
+      "eslint . --fix"
     ]
   }
 }
