@@ -8,15 +8,16 @@ export default function RecipeList({ recipes }) {
         <div className={styles.container}>
             {recipes.map(({
                 name,
-                id,
+                slug,
                 image,
                 liked,
             }) => (
                 <RecipeCard
-                    key={id}
+                    key={slug}
                     name={name}
                     image={image}
                     liked={liked}
+                    slug={slug}
                 />
             ))}
         </div>

@@ -9,7 +9,7 @@
     cursor: pointer;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .nameContainer {
         display: flex;
         justify-content: space-between;
@@ -21,9 +21,10 @@
     margin: 16px 0;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .inputHalfDesktop {
         width: 48%;
+        margin-bottom: 0;
     }
 }
 

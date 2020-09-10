@@ -28,6 +28,14 @@ $hoverBlue= #2EC3CC */
     font-weight: 600;
 }
 
+.headingSm {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 1rem 0;
+    font-weight: 300;
+    color: #00848C;
+}
+
 .center {
     text-align: center;
 }

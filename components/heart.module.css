@@ -1,0 +1,14 @@
+.likedIcon {
+    fill: none;
+    stroke: #d62222;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px;
+    width: 24px;
+    cursor: pointer;
+}
+
+.likedIconLiked,
+.likedIcon:hover {
+    fill: #d62222;
+}
