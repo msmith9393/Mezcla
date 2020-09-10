@@ -49,54 +49,50 @@ export default function Recipe({
         >
             <div>
                 <div>
-                    <img src={`/../${image}`} alt={name} className='header-image' />
-                    <div className='container'>
-                        <h4 className='headingXl title'>{name}</h4>
+                    <img src={`/../${image}`} alt={name} className="header-image" />
+                    <div className="container">
+                        <h4 className="headingXl title">{name}</h4>
                         <Heart liked={liked} />
-                        <h5 className='headingSm subtitle'>{author}</h5>
+                        <h5 className="headingSm subtitle">{author}</h5>
                         <p>{summary}</p>
-                        <div className='information'>
+                        <div className="information">
                             <div>
-                                <h6 className='headingMd'>Active Time</h6>
+                                <h6 className="headingMd">Active Time</h6>
                                 <p>{activeTime}</p>
                             </div>
                             <div>
-                                <h6 className='headingMd'>Total Time</h6>
+                                <h6 className="headingMd">Total Time</h6>
                                 <p>{totalTime}</p>
                             </div>
                             <div>
-                                <h6 className='headingMd'>Serves</h6>
+                                <h6 className="headingMd">Serves</h6>
                                 <p>{serves}</p>
                             </div>
                             <div>
-                                <h6 className='headingMd'>Level</h6>
+                                <h6 className="headingMd">Level</h6>
                                 <p>{level}</p>
                             </div>
                         </div>
-                        <div className='recipe'>
-                            <div className='ingredients'>
-                                <h6 className='headingLg'>Ingredients</h6>
-                                <ul className='list'>
-                                    {ingredients.map((ingredient, index) => {
-                                        return (
-                                            <li key={index}>{ingredient}</li>
-                                        );
-                                    })}
+                        <div className="recipe">
+                            <div className="ingredients">
+                                <h6 className="headingLg">Ingredients</h6>
+                                <ul className="list">
+                                    {ingredients.map((ingredient, index) => (
+                                        <li key={index}>{ingredient}</li>
+                                    ))}
                                 </ul>
                             </div>
-                            <div className='directions'>
-                                <h6 className='headingLg'>Directions</h6>
-                                {directions.map((paragraph, index) => {
-                                    return (
-                                        <p key={index}>{paragraph}</p>
-                                    );
-                                })}
+                            <div className="directions">
+                                <h6 className="headingLg">Directions</h6>
+                                {directions.map((paragraph, index) => (
+                                    <p key={index}>{paragraph}</p>
+                                ))}
                             </div>
                         </div>
                     </div>
                 </div>
                 <style jsx>
-                {`
+                    {`
                     .header-image {
                         display: block;
                         max-width: 100%;
@@ -200,7 +196,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: false
+        fallback: false,
     };
 }
 
