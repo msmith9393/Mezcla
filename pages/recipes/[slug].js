@@ -1,14 +1,12 @@
-/* eslint-disable react/no-array-index-key */
-
+/* eslint-disable react/no-array-index-key no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Layout from '../../components/layout';
-import Heart from '../../components/heart';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { gql } from 'apollo-server-micro';
+import Layout from '../../components/layout';
+import Heart from '../../components/heart';
 
 export default function Recipe({
-    slug,
     name,
     description,
     instructions,
@@ -36,7 +34,9 @@ export default function Recipe({
                     <div className="container">
                         <h4 className="headingXl title">{name}</h4>
                         <Heart liked={liked} />
-                        <h5 className="headingSm subtitle">{authorFirstName} {authorLastName}</h5>
+                        <h5 className="headingSm subtitle">
+                            {authorFirstName} {authorLastName}
+                        </h5>
                         <p>{description}</p>
                         <div className="information">
                             <div>
@@ -167,12 +167,10 @@ export default function Recipe({
 
 Recipe.propTypes = {
     name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    instructions: PropTypes.array.isRequired,
-    ingredients: PropTypes.array.isRequired,
+    instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
+    ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     activeTime: PropTypes.string.isRequired,
     totalTime: PropTypes.string.isRequired,
     serves: PropTypes.string.isRequired,
@@ -190,8 +188,8 @@ export async function getServerSideProps({ params }) {
         uri: 'http://localhost:3000/api/graphql',
     });
     const client = new ApolloClient({
-        cache: cache,
-        link: link,
+        cache,
+        link,
         name: 'react-web-client',
         version: '1.1',
         queryDeduplication: false,
@@ -231,7 +229,7 @@ export async function getServerSideProps({ params }) {
                     first_name,
                     last_name,
                 },
-                liked(user_id: ${userId}) {
+                liked(user_id: ${ userId }) {
                     value,
                 },
             },
@@ -242,7 +240,6 @@ export async function getServerSideProps({ params }) {
 
     return {
         props: {
-            slug: params.slug,
             name: data.recipeBySlug.name,
             image: data.recipeBySlug.image,
             description: data.recipeBySlug.description,

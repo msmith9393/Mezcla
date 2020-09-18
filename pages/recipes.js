@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Layout from '../components/layout';
-import RecipeList from '../components/recipe-list';
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { gql } from 'apollo-server-micro';
+import Layout from '../components/layout';
+import RecipeList from '../components/recipe-list';
 import Search from '../components/search';
 
 export default function Recipes({ recipes }) {
@@ -29,8 +29,8 @@ export async function getServerSideProps() {
         uri: 'http://localhost:3000/api/graphql',
     });
     const client = new ApolloClient({
-        cache: cache,
-        link: link,
+        cache,
+        link,
         name: 'react-web-client',
         version: '1.1',
         queryDeduplication: false,

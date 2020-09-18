@@ -24,7 +24,11 @@ module.exports = {
         },
     },
     rules: {
-        indent: ['error', 4],
+        indent: ['error', 4, {
+            ignoredNodes: [
+                'TemplateLiteral',
+            ],
+        }],
         'react/jsx-indent': ['error', 4],
         'react/jsx-indent-props': ['error', 4],
         'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
@@ -32,9 +36,6 @@ module.exports = {
             'error', { assert: 'either' },
         ],
         'jsx-a11y/anchor-is-valid': 0,
-        "graphql/template-strings": ['error', {
-            env: 'apollo',
-            schemaJson: require('./graphql/schema.json'),
-        }]
+        'template-curly-spacing': ['off'],
     },
 };

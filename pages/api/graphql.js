@@ -1,3 +1,5 @@
+/* eslint-disable arrow-body-style no-unused-vars */
+
 import { gql, ApolloServer } from 'apollo-server-micro';
 import Knex from 'knex';
 import Dataloader from 'dataloader';
@@ -5,7 +7,7 @@ import Dataloader from 'dataloader';
 // TODO - Prod versus dev
 const db = new Knex({
     client: 'pg',
-    connection: 'postgres://megansmith@localhost:5432/mezcla'
+    connection: 'postgres://megansmith@localhost:5432/mezcla',
 });
 
 const typeDefs = gql`
@@ -59,7 +61,7 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        recipes: (_parent, args, context) => {
+        recipes: (_parent, args, _context) => {
             return db
                 .select('*')
                 .from('recipes')
@@ -67,7 +69,7 @@ const resolvers = {
                 .limit(Math.min(args.first, 50))
                 .offset(args.skip);
         },
-        recipeBySlug: (_parent, args, context) => {
+        recipeBySlug: (_parent, args, _context) => {
             return db
                 .select('*')
                 .from('recipes')
@@ -95,8 +97,8 @@ const resolvers = {
                 .select('*')
                 .from('liked')
                 .where({
-                    'user_id': args.user_id,
-                    'recipe_id': recipe.id,
+                    user_id: args.user_id,
+                    recipe_id: recipe.id,
                 })
                 .first() || false;
         }
