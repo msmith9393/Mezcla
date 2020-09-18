@@ -7,7 +7,7 @@ export default function Search() {
             <label htmlFor="header-search">
                 <span className={styles.hidden}>Search</span>
             </label>
-            <input type="search" name="search" className={styles.search} />
+            <input type="search" name="search" placeholder="Search functionality coming soon!" className={styles.search} />
             <button className={styles.submit} type="submit">
                 <span className={styles.hidden}>Submit Search</span>
             </button>

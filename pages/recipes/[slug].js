@@ -177,8 +177,8 @@ Recipe.propTypes = {
     totalTime: PropTypes.string.isRequired,
     serves: PropTypes.string.isRequired,
     level: PropTypes.string.isRequired,
-    tags: PropTypes.array.isRequired,
-    reviews: PropTypes.array.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.object).isRequired,
+    reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
     authorFirstName: PropTypes.string.isRequired,
     authorLastName: PropTypes.string.isRequired,
     liked: PropTypes.bool.isRequired,
@@ -202,7 +202,7 @@ export async function getServerSideProps({ params }) {
             },
         },
     });
-    const userId = 1;
+    const userId = 0;
     const { data } = await client.query({
         query: gql`{
             recipeBySlug(slug: "${params.slug}") {
@@ -232,12 +232,11 @@ export async function getServerSideProps({ params }) {
                     last_name,
                 },
                 liked(user_id: ${userId}) {
-                    value
-                }
+                    value,
+                },
             },
         }`,
     });
-
     const ingredients = data.recipeBySlug.ingredients.split('\\n');
     const instructions = data.recipeBySlug.instructions.split('\\n');
 
@@ -245,10 +244,10 @@ export async function getServerSideProps({ params }) {
         props: {
             slug: params.slug,
             name: data.recipeBySlug.name,
-            description: data.recipeBySlug.description,
-            instructions,
-            ingredients,
             image: data.recipeBySlug.image,
+            description: data.recipeBySlug.description,
+            ingredients,
+            instructions,
             activeTime: data.recipeBySlug.active_time,
             totalTime: data.recipeBySlug.total_time,
             serves: data.recipeBySlug.serves,
@@ -257,7 +256,9 @@ export async function getServerSideProps({ params }) {
             reviews: data.recipeBySlug.reviews,
             authorFirstName: data.recipeBySlug.user.first_name,
             authorLastName: data.recipeBySlug.user.last_name,
-            liked: data.recipeBySlug.liked.value,
+            liked: data.recipeBySlug.liked
+                ? data.recipeBySlug.liked.value
+                : false,
         },
     };
 }

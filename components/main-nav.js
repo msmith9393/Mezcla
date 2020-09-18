@@ -6,7 +6,7 @@ import styles from './main-nav.module.css';
 import Search from './search';
 
 export const mainNavLinks = [
-    { pathname: '/all-recipes', title: 'All Recipes' },
+    { pathname: '/recipes', title: 'All Recipes' },
     { pathname: '/favorites', title: 'Favorites' },
     { pathname: '/my-recipes', title: 'My Recipes' },
     { pathname: '/create', title: 'Create' },

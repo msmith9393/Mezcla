@@ -16,21 +16,21 @@ const typeDefs = gql`
 
     type Recipe {
         id: ID!
+        slug: String!
         name: String!
+        image: String!
         description: String!
-        instructions: String!
         ingredients: String!
+        instructions: String!
         active_time: String!
         total_time: String!
         serves: String!
         level: String!
-        image: String!
-        slug: String!
         language: String!
         tags(first: Int = 10, skip: Int = 0): [Tag!]!
         reviews(first: Int = 10, skip: Int = 0): [Review!]!
-        liked(user_id: Int): Liked!
         user: User!
+        liked(user_id: Int): Liked
     }
 
     type Tag {
@@ -91,7 +91,6 @@ const resolvers = {
                 .first();
         },
         liked: (recipe, args, _context) => {
-            console.log("ARGS", args)
             return db
                 .select('*')
                 .from('liked')
@@ -99,7 +98,7 @@ const resolvers = {
                     'user_id': args.user_id,
                     'recipe_id': recipe.id,
                 })
-                .first();
+                .first() || false;
         }
     },
 
