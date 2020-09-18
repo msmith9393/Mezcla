@@ -4,6 +4,7 @@ module.exports = {
     plugins: [
         'react',
         'prettier',
+        'graphql',
     ],
     parserOptions: {
         ecmaFeatures: {
@@ -31,5 +32,9 @@ module.exports = {
             'error', { assert: 'either' },
         ],
         'jsx-a11y/anchor-is-valid': 0,
+        "graphql/template-strings": ['error', {
+            env: 'apollo',
+            schemaJson: require('./graphql/schema.json'),
+        }]
     },
 };
