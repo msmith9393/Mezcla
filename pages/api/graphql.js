@@ -1,6 +1,7 @@
 import { gql, ApolloServer } from 'apollo-server-micro';
 import Knex from 'knex';
 import Dataloader from 'dataloader';
+
 // TODO - Prod versus dev
 const db = new Knex({
     client: 'pg',
@@ -9,7 +10,8 @@ const db = new Knex({
 
 const typeDefs = gql`
     type Query {
-        recipes(first: Int = 2, skip: Int = 0): [Recipe!]!
+        recipes(first: Int = 10, skip: Int = 0): [Recipe!]!
+        recipeBySlug(slug: String!): Recipe!
     }
 
     type Recipe {
@@ -24,32 +26,53 @@ const typeDefs = gql`
         level: String!
         image: String!
         slug: String!
+        language: String!
         tags(first: Int = 10, skip: Int = 0): [Tag!]!
         reviews(first: Int = 10, skip: Int = 0): [Review!]!
+        liked(user_id: Int): Liked!
+        user: User!
     }
 
     type Tag {
         id: ID!
-        tag: String!
-        recipe: Recipe!
+        value: String!
+    }
+
+    type User {
+        first_name: String!
+        last_name: String!
+        language: String!
     }
 
     type Review {
         id: ID!
         review: Int!
         comment: String!
+        user: User!
+    }
+
+    type Liked {
+        id: ID!
+        value: Boolean!
     }
 `;
 
 const resolvers = {
     Query: {
-        recipes: (_parent, args, { loader }) => {
+        recipes: (_parent, args, context) => {
             return db
                 .select('*')
                 .from('recipes')
                 .orderBy('created_at', 'desc')
                 .limit(Math.min(args.first, 50))
                 .offset(args.skip);
+        },
+        recipeBySlug: (_parent, args, context) => {
+            return db
+                .select('*')
+                .from('recipes')
+                .where('slug', args.slug)
+                .first();
         },
     },
 
@@ -59,7 +82,35 @@ const resolvers = {
         },
         reviews: (recipe, _args, { loader }) => {
             return loader.reviews.load(recipe.id);
+        },
+        user: (recipe, _args, _context) => {
+            return db
+                .select('*')
+                .from('users')
+                .where('id', recipe.user_id)
+                .first();
+        },
+        liked: (recipe, args, _context) => {
+            console.log("ARGS", args)
+            return db
+                .select('*')
+                .from('liked')
+                .where({
+                    'user_id': args.user_id,
+                    'recipe_id': recipe.id,
+                })
+                .first();
         }
+    },
+
+    Review: {
+        user: (review, _args, _context) => {
+            return db
+                .select('*')
+                .from('users')
+                .where('id', review.user_id)
+                .first();
+        },
     },
 };
 
