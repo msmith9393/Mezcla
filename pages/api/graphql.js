@@ -13,6 +13,8 @@ const db = new Knex({
 const typeDefs = gql`
     type Query {
         recipes(first: Int = 10, skip: Int = 0): [Recipe!]!
+        recipesByUser(user_id: Int, first: Int = 10, skip: Int = 0): [Recipe!]!
+        favoriteRecipes(user_id: Int, first: Int = 10, skip: Int = 0): [Liked!]!
         recipeBySlug(slug: String!): Recipe!
     }
 
@@ -56,6 +58,8 @@ const typeDefs = gql`
     type Liked {
         id: ID!
         value: Boolean!
+        user: User!
+        recipe: Recipe!
     }
 `;
 
@@ -69,11 +73,45 @@ const resolvers = {
                 .limit(Math.min(args.first, 50))
                 .offset(args.skip);
         },
+        recipesByUser: (_parent, args, _context) => {
+            return db
+                .select('*')
+                .from('recipes')
+                .where('user_id', args.user_id)
+                .orderBy('created_at', 'desc')
+                .limit(Math.min(args.first, 50))
+                .offset(args.skip);
+        },
+        favoriteRecipes: (_parent, args, _context) => {
+            return db.select('*')
+                .from('liked')
+                .where('liked.user_id', args.user_id)
+                .orderBy('created_at', 'desc')
+                .limit(Math.min(args.first, 50))
+                .offset(args.skip);
+        },
         recipeBySlug: (_parent, args, _context) => {
             return db
                 .select('*')
                 .from('recipes')
                 .where('slug', args.slug)
+                .first();
+        },
+    },
+
+    Liked: {
+        recipe: (liked, _args, { loader }) => {
+            return db
+                .select('*')
+                .from('recipes')
+                .where('id', liked.recipe_id)
+                .first();
+        },
+        user: (liked, _args, _context) => {
+            return db
+                .select('*')
+                .from('users')
+                .where('id', liked.user_id)
                 .first();
         },
     },
@@ -116,6 +154,18 @@ const resolvers = {
 };
 
 const loader = {
+    recipes: new Dataloader((ids) => {
+        return db.select('*')
+            .from('recipes')
+            .whereIn('id', ids)
+            .then((rows) => {
+                return ids.map((id) => {
+                    return rows.filter((row) => {
+                        return row.recipe_id === id;
+                    });
+                });
+            });
+    }),
     tags: new Dataloader((ids) => {
         return db.select('*')
             .from('tags')
