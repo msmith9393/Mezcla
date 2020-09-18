@@ -5,7 +5,7 @@ const link = createHttpLink({
     uri: 'http://localhost:3000/api/graphql',
 });
 
-export const client = new ApolloClient({
+const client = new ApolloClient({
     cache,
     link,
     name: 'react-web-client',
@@ -18,3 +18,5 @@ export const client = new ApolloClient({
         },
     },
 });
+
+export default client;

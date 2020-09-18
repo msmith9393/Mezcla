@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { client } from '../graphql';
 import { gql } from 'apollo-server-micro';
+import client from '../graphql';
 import Layout from '../components/layout';
 import RecipeList from '../components/recipe-list';
 

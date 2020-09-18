@@ -17,7 +17,8 @@ export default function Footer() {
             <a href="mailto:megan@tokaypress.com">
                 <EmailIcon
                     className={styles.connectIcon}
-                    emailClassStroke={styles.emailClassStroke} />
+                    emailClassStroke={styles.emailClassStroke}
+                />
             </a>
             <a href="https://github.com/msmith9393/Mezcla" target="_blank" rel="noreferrer">
                 <GithubIcon className={styles.connectIcon} />

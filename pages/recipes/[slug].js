@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { gql } from 'apollo-server-micro';
-import { client } from '../../graphql';
+import client from '../../graphql';
 import Layout from '../../components/layout';
 import Heart from '../../components/heart';
 
@@ -35,7 +35,8 @@ export default function Recipe({
                         <h4 className="headingXl title">{name}</h4>
                         <Heart liked={liked} />
                         <h5 className="headingSm subtitle">
-                            {authorFirstName} {authorLastName}
+                            {authorFirstName}
+                             {authorLastName}
                         </h5>
                         <p>{description}</p>
                         <div className="information">
