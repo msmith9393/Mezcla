@@ -40,8 +40,8 @@
     }
   },
   "lint-staged": {
-    "./{components,pages}/\\**/\\*.js": [
-      "eslint . --fix"
+    "*.js": [
+      "eslint ./{components,pages}/\\**/\\*.js"
     ]
   }
 }
