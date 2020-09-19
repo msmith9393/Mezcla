@@ -1,5 +1,3 @@
-/* eslint-disable arrow-body-style no-unused-vars */
-
 import { gql, ApolloServer } from 'apollo-server-micro';
 import Knex from 'knex';
 import Dataloader from 'dataloader';
@@ -65,141 +63,93 @@ const typeDefs = gql`
 
 const resolvers = {
     Query: {
-        recipes: (_parent, args, _context) => {
-            return db
-                .select('*')
-                .from('recipes')
-                .orderBy('created_at', 'desc')
-                .limit(Math.min(args.first, 50))
-                .offset(args.skip);
-        },
-        recipesByUser: (_parent, args, _context) => {
-            return db
-                .select('*')
-                .from('recipes')
-                .where('user_id', args.user_id)
-                .orderBy('created_at', 'desc')
-                .limit(Math.min(args.first, 50))
-                .offset(args.skip);
-        },
-        favoriteRecipes: (_parent, args, _context) => {
-            return db.select('*')
-                .from('liked')
-                .where('liked.user_id', args.user_id)
-                .orderBy('created_at', 'desc')
-                .limit(Math.min(args.first, 50))
-                .offset(args.skip);
-        },
-        recipeBySlug: (_parent, args, _context) => {
-            return db
-                .select('*')
-                .from('recipes')
-                .where('slug', args.slug)
-                .first();
-        },
+        recipes: (_parent, args, _context) => db
+            .select('*')
+            .from('recipes')
+            .orderBy('created_at', 'desc')
+            .limit(Math.min(args.first, 50))
+            .offset(args.skip),
+        recipesByUser: (_parent, args, _context) => db
+            .select('*')
+            .from('recipes')
+            .where('user_id', args.user_id)
+            .orderBy('created_at', 'desc')
+            .limit(Math.min(args.first, 50))
+            .offset(args.skip),
+        favoriteRecipes: (_parent, args, _context) => db.select('*')
+            .from('liked')
+            .where('liked.user_id', args.user_id)
+            .orderBy('created_at', 'desc')
+            .limit(Math.min(args.first, 50))
+            .offset(args.skip),
+        recipeBySlug: (_parent, args, _context) => db
+            .select('*')
+            .from('recipes')
+            .where('slug', args.slug)
+            .first(),
     },
 
     Liked: {
-        recipe: (liked, _args, { loader }) => {
-            return db
-                .select('*')
-                .from('recipes')
-                .where('id', liked.recipe_id)
-                .first();
-        },
-        user: (liked, _args, _context) => {
-            return db
-                .select('*')
-                .from('users')
-                .where('id', liked.user_id)
-                .first();
-        },
+        recipe: (liked, _args, { loader }) => db
+            .select('*')
+            .from('recipes')
+            .where('id', liked.recipe_id)
+            .first(),
+        user: (liked, _args, _context) => db
+            .select('*')
+            .from('users')
+            .where('id', liked.user_id)
+            .first(),
     },
 
     Recipe: {
-        tags: (recipe, _args, { loader }) => {
-            return loader.tags.load(recipe.id);
-        },
-        reviews: (recipe, _args, { loader }) => {
-            return loader.reviews.load(recipe.id);
-        },
-        user: (recipe, _args, _context) => {
-            return db
-                .select('*')
-                .from('users')
-                .where('id', recipe.user_id)
-                .first();
-        },
-        liked: (recipe, args, _context) => {
-            return db
-                .select('*')
-                .from('liked')
-                .where({
-                    user_id: args.user_id,
-                    recipe_id: recipe.id,
-                })
-                .first() || false;
-        }
+        tags: (recipe, _args, { loader }) => loader.tags.load(recipe.id),
+        reviews: (recipe, _args, { loader }) => loader.reviews.load(recipe.id),
+        user: (recipe, _args, _context) => db
+            .select('*')
+            .from('users')
+            .where('id', recipe.user_id)
+            .first(),
+        liked: (recipe, args, _context) => db
+            .select('*')
+            .from('liked')
+            .where({
+                user_id: args.user_id,
+                recipe_id: recipe.id,
+            })
+            .first() || false,
     },
 
     Review: {
-        user: (review, _args, _context) => {
-            return db
-                .select('*')
-                .from('users')
-                .where('id', review.user_id)
-                .first();
-        },
+        user: (review, _args, _context) => db
+            .select('*')
+            .from('users')
+            .where('id', review.user_id)
+            .first(),
     },
 };
 
 const loader = {
-    recipes: new Dataloader((ids) => {
-        return db.select('*')
-            .from('recipes')
-            .whereIn('id', ids)
-            .then((rows) => {
-                return ids.map((id) => {
-                    return rows.filter((row) => {
-                        return row.recipe_id === id;
-                    });
-                });
-            });
-    }),
-    tags: new Dataloader((ids) => {
-        return db.select('*')
-            .from('tags')
-            .whereIn('recipe_id', ids)
-            .then((rows) => {
-                return ids.map((id) => {
-                    return rows.filter((row) => {
-                        return row.recipe_id === id;
-                    });
-                });
-            });
-    }),
-    reviews: new Dataloader((ids) => {
-        return db.select('*')
-            .from('reviews')
-            .whereIn('recipe_id', ids)
-            .then((rows) => {
-                return ids.map((id) => {
-                    return rows.filter((row) => {
-                        return row.recipe_id === id;
-                    });
-                });
-            });
-    }),
+    recipes: new Dataloader((ids) => db.select('*')
+        .from('recipes')
+        .whereIn('id', ids)
+        .then((rows) => ids.map((id) => rows.filter((row) => row.recipe_id === id)))),
+    tags: new Dataloader((ids) => db.select('*')
+        .from('tags')
+        .whereIn('recipe_id', ids)
+        .then((rows) => ids.map((id) => rows.filter((row) => row.recipe_id === id)))),
+    reviews: new Dataloader((ids) => db.select('*')
+        .from('reviews')
+        .whereIn('recipe_id', ids)
+        .then((rows) => ids.map((id) => rows.filter((row) => row.recipe_id === id)))),
 };
 
 const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => {
-        return {
-            loader,
-        };
-    },
+    context: () => ({
+        loader,
+    }),
 });
 
 const handler = apolloServer.createHandler({

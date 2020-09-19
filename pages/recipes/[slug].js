@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { gql } from 'apollo-server-micro';
@@ -36,7 +35,7 @@ export default function Recipe({
                         <Heart liked={liked} />
                         <h5 className="headingSm subtitle">
                             {authorFirstName}
-                             {authorLastName}
+                            {authorLastName}
                         </h5>
                         <p>{description}</p>
                         <div className="information">
