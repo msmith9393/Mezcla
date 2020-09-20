@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { gql, ApolloServer } from 'apollo-server-micro';
 import Knex from 'knex';
 import Dataloader from 'dataloader';

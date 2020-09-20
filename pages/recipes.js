@@ -13,8 +13,10 @@ export default function Recipes({ recipes }) {
             pageDescription="Search all recipes"
             image=""
         >
-            <Search />
-            <RecipeList recipes={recipes} />
+            <div>
+                <Search />
+                <RecipeList recipes={recipes} />
+            </div>
         </Layout>
     );
 }

@@ -37,5 +37,9 @@ module.exports = {
         ],
         'jsx-a11y/anchor-is-valid': 0,
         'template-curly-spacing': ['off'],
+        'react/forbid-prop-types': ['off'],
+        'react/require-default-props': ['warn'],
+        'react/no-array-index-key': ['warn']
+
     },
 };

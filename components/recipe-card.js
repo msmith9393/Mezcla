@@ -24,7 +24,7 @@ export default function RecipeCard({
 
 RecipeCard.propTypes = {
     name: PropTypes.string.isRequired,
-    liked: PropTypes.bool.isRequired,
+    liked: PropTypes.object,
     image: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
 };

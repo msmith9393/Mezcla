@@ -6,8 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ./{components,pages}/\\**/\\*.js",
-    "lint.fix": "eslint --fix ./{components,pages}/\\**/\\*.js"
+    "lint": "eslint  ./{components,pages}/*.js",
+    "lint.fix": "eslint --fix ./{components,pages}/*.js"
   },
   "dependencies": {
     "@apollo/client": "^3.2.0",
@@ -40,8 +40,8 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint ./{components,pages}/\\**/\\*.js"
+    "./{components,pages}/*.js": [
+      "eslint . --fix"
     ]
   }
 }
