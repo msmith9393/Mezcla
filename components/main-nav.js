@@ -6,10 +6,11 @@ import styles from './main-nav.module.css';
 import Search from './search';
 
 export const mainNavLinks = [
-    { pathname: '/recipes', title: 'All Recipes' },
-    { pathname: '/favorites', title: 'Favorites' },
-    { pathname: '/my-recipes', title: 'My Recipes' },
-    { pathname: '/create', title: 'Create' },
+    { pathname: '/coming-soon', title: 'Coming Soon' },
+    // { pathname: '/recipes', title: 'All Recipes' },
+    // { pathname: '/favorites', title: 'Favorites' },
+    // { pathname: '/my-recipes', title: 'My Recipes' },
+    // { pathname: '/create', title: 'Create' },
 ];
 
 export default function MainNav() {
@@ -77,7 +78,7 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        <a className={styles.mainNavLinkDesktop}>Log Out</a>
+                        {/*<a className={styles.mainNavLinkDesktop}>Log Out</a>*/}
                     </div>
                 </div>
                 <div className={classNames(styles.mainNavLinksMobileContainer, {
@@ -90,13 +91,21 @@ export default function MainNav() {
                             <Link key={title} href={pathname}>
                                 <a className={classNames(styles.mainNavLinkMobile, {
                                     [styles.mainNavLinkMobileActive]: router.pathname === pathname,
-                                })}
+                                })} onClick={() => {
+                                    if (router.pathname === pathname) {
+                                        setOpen(!open)
+                                    }
+                                }} onKeyDown={(event) => {
+                                    if (event.keycode === 13 && router.pathname === pathname) {
+                                        setOpen(!open);
+                                    }
+                                }}
                                 >
                                     {title}
                                 </a>
                             </Link>
                         ))}
-                        <a className={styles.mainNavLogOutLinkMobile}>Log Out</a>
+                        {/*<a className={styles.mainNavLogOutLinkMobile}>Log Out</a>*/}
                     </div>
                 </div>
             </nav>

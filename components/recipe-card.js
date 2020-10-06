@@ -16,7 +16,7 @@ export default function RecipeCard({
             <a className={styles.card}>
                 <img src={image} alt={name} className={styles.image} />
                 <h4 className={classNames('headingLg', styles.title)}>{name}</h4>
-                <Heart liked={liked ? liked.value : false} />
+                <Heart liked={liked} />
             </a>
         </Link>
     );
@@ -24,7 +24,7 @@ export default function RecipeCard({
 
 RecipeCard.propTypes = {
     name: PropTypes.string.isRequired,
-    liked: PropTypes.object,
+    liked: PropTypes.bool.isRequired,
     image: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
 };

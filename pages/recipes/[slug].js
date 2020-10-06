@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { gql } from 'apollo-server-micro';
-import client from '../../graphql';
+// import { gql } from 'apollo-server-micro';
+// import client from '../../graphql';
 import Layout from '../../components/layout';
 import Heart from '../../components/heart';
 
@@ -34,8 +34,7 @@ export default function Recipe({
                         <h4 className="headingXl title">{name}</h4>
                         <Heart liked={liked} />
                         <h5 className="headingSm subtitle">
-                            {authorFirstName}
-                            {authorLastName}
+                            {authorFirstName} {authorLastName}
                         </h5>
                         <p>{description}</p>
                         <div className="information">
@@ -183,62 +182,82 @@ Recipe.propTypes = {
 };
 
 export async function getServerSideProps({ params }) {
-    const userId = 0;
-    const { data } = await client.query({
-        query: gql`{
-            recipeBySlug(slug: "${params.slug}") {
-                id,
-                name,
-                description,
-                instructions,
-                ingredients,
-                active_time,
-                total_time,
-                serves,
-                level,
-                image,
-                tags {
-                    value,
-                },
-                reviews {
-                    review,
-                    comment,
-                    user {
-                        first_name,
-                        last_name,
-                    },
-                },
-                user {
-                    first_name,
-                    last_name,
-                },
-                liked(user_id: ${ userId }) {
-                    value,
-                },
-            },
-        }`,
-    });
-    const ingredients = data.recipeBySlug.ingredients.split('\\n');
-    const instructions = data.recipeBySlug.instructions.split('\\n');
-
+    const HARD_CODED = {
+        'pecan-dreams': {
+            name: 'Pecan Dreams',
+        },
+        'strawberry-tart': {
+            name: 'Strawberry Tart',
+        },
+        'rice-pudding': {
+            name: 'Rice Pudding',
+        },
+        'strawberry-shortcake': {
+            name: 'Strawberry Shortcake',
+        },
+        'banana-bread': {
+            name: 'Banana Bread',
+        },
+        'myriams-cake': {
+            name: 'Myriams Cake',
+        },
+    };
+    // const userId = 0;
+    // const { data } = await client.query({
+    //     query: gql`{
+    //         recipeBySlug(slug: "${params.slug}") {
+    //             id,
+    //             name,
+    //             description,
+    //             instructions,
+    //             ingredients,
+    //             active_time,
+    //             total_time,
+    //             serves,
+    //             level,
+    //             image,
+    //             tags {
+    //                 value,
+    //             },
+    //             reviews {
+    //                 review,
+    //                 comment,
+    //                 user {
+    //                     first_name,
+    //                     last_name,
+    //                 },
+    //             },
+    //             user {
+    //                 first_name,
+    //                 last_name,
+    //             },
+    //             liked(user_id: ${ userId }) {
+    //                 value,
+    //             },
+    //         },
+    //     }`,
+    // });
+    // const ingredients = data.recipeBySlug.ingredients.split('\\n');
+    // const instructions = data.recipeBySlug.instructions.split('\\n');
+    const ingredients = ['1 cup butter', '2 cups flour', '2 tsp baking powder'];
+    const instructions = ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'];
+    const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.';
     return {
         props: {
-            name: data.recipeBySlug.name,
-            image: data.recipeBySlug.image,
-            description: data.recipeBySlug.description,
+            name: HARD_CODED[params.slug].name,
+            image: `${params.slug}.jpg`,
+            description,
             ingredients,
             instructions,
-            activeTime: data.recipeBySlug.active_time,
-            totalTime: data.recipeBySlug.total_time,
-            serves: data.recipeBySlug.serves,
-            level: data.recipeBySlug.level,
-            tags: data.recipeBySlug.tags,
+            activeTime: '1 hour',
+            totalTime: '2 hours',
+            serves: '8',
+            level: 'Intermediate',
+            // tags: data.recipeBySlug.tags,
             // reviews: data.recipeBySlug.reviews,
-            authorFirstName: data.recipeBySlug.user.first_name,
-            authorLastName: data.recipeBySlug.user.last_name,
-            liked: data.recipeBySlug.liked
-                ? data.recipeBySlug.liked.value
-                : false,
+            authorFirstName: 'Megan',
+            authorLastName: 'Smith',
+            liked: true,
         },
     };
 }

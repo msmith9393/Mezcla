@@ -18,9 +18,6 @@ export default function Home() {
                         <p>
                             I am a Software Engineer in the Bay Area. The last 4 years I have worked at <a className="link" href="https://tile.com" target="_blank" rel="noreferrer">Tile</a>, the perfect gift for people who misplace their keys! Now, I am enjoying a transition stage, where I am focused on developing new skills through personal projects.
                         </p>
-                        <p>
-                            I love cooking and I love Spanish, so I decided to create Mezcla to showcase my development skills and delicious recipes in English and Spanish. <Link href="/spanish"><a className="link">Click Here</a></Link> to change to Spanish.
-                        </p>
                     </div>
                 </div>
                 <div className="line-break" />
@@ -29,13 +26,7 @@ export default function Home() {
                         <h2 className="headingLg">About Mezcla!</h2>
                         <img src="lemon.png" alt="Mezcla Logo" className="logo" />
                     </div>
-                    <p>Mezcla is  a site to share your favorite recipes! <Link href="/log-in"><a className="link">Log In</a></Link> to get started.</p>
-                    <h4 className="headingMd">About the tech stack:</h4>
-                    <ul>
-                        <li>Next.js - React Framework</li>
-                        <li>GraphQL</li>
-                    </ul>
-                    <p><a className="link" href="https://github.com/msmith9393/Mezcla" target="_blank" rel="noreferrer">Checkout the Repo!</a></p>
+                    <p>Mezcla.dev will be a site to add your favorite recipes and expore recipes that others have uploaded! <Link href="/coming-soon"><a className="link">Click Here</a></Link> to see my plan.</p>
                 </div>
                 <div className="line-break" />
                 <div className="center">
