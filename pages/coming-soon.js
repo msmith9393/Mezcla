@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import Layout from '../components/layout';
 import RecipeList from '../components/recipe-list';
 
@@ -19,9 +18,12 @@ export default function ComingSoon({ recipes }) {
                         <img src="lemon.png" alt="Mezcla Logo" className="logo" />
                     </div>
                     <p>Mezcla.dev will be a site to add your favorite
-                    recipes and expore recipes that others have uploaded!</p>
+                        recipes and expore recipes that others have uploaded!
+                    </p>
                     <p>Users will be able to create an account and log in.
-                    Then they can browse recipes and mark them as their favorites. They will also be able to create recipes and upload them to the world.</p>
+                        Then they can browse recipes and mark them as their favorites.
+                        They will also be able to create recipes and upload them to the world.
+                    </p>
                 </div>
                 <div className="line-break" />
                 <div className="container">

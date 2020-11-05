@@ -6,9 +6,9 @@ import styles from './main-nav.module.css';
 import Search from './search';
 
 export const mainNavLinks = [
-    { pathname: '/coming-soon', title: 'Coming Soon' },
-    // { pathname: '/recipes', title: 'All Recipes' },
-    // { pathname: '/favorites', title: 'Favorites' },
+    // { pathname: '/coming-soon', title: 'Coming Soon' },
+    { pathname: '/recipes', title: 'All Recipes' },
+    { pathname: '/favorites', title: 'Favorites' },
     // { pathname: '/my-recipes', title: 'My Recipes' },
     // { pathname: '/create', title: 'Create' },
 ];
@@ -48,7 +48,7 @@ export default function MainNav() {
                         aria-pressed={open ? 'true' : 'false'}
                         className={styles.mainNavIconMobile}
                         onClick={() => setOpen(!open)}
-                        onKeyDown={(event) => {
+                        onKeyPress={(event) => {
                             if (event.keycode === 13) {
                                 setOpen(!open);
                             }
@@ -78,7 +78,7 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        {/*<a className={styles.mainNavLinkDesktop}>Log Out</a>*/}
+                        <a className={styles.mainNavLinkDesktop}>Log In</a>
                     </div>
                 </div>
                 <div className={classNames(styles.mainNavLinksMobileContainer, {
@@ -87,25 +87,31 @@ export default function MainNav() {
                 >
                     <div className={styles.mainNavLinksMobile}>
                         <Search />
-                        {mainNavLinks.map(({ pathname, title }) => (
+                        {mainNavLinks.map(({ pathname, title }, index) => (
                             <Link key={title} href={pathname}>
-                                <a className={classNames(styles.mainNavLinkMobile, {
-                                    [styles.mainNavLinkMobileActive]: router.pathname === pathname,
-                                })} onClick={() => {
-                                    if (router.pathname === pathname) {
-                                        setOpen(!open)
-                                    }
-                                }} onKeyDown={(event) => {
-                                    if (event.keycode === 13 && router.pathname === pathname) {
-                                        setOpen(!open);
-                                    }
-                                }}
+                                <a
+                                    role="button"
+                                    tabIndex={index}
+                                    className={classNames(styles.mainNavLinkMobile, {
+                                        [styles.mainNavLinkMobileActive]:
+                                            router.pathname === pathname,
+                                    })}
+                                    onKeyPress={(event) => {
+                                        if (event.keycode === 13 && router.pathname === pathname) {
+                                            setOpen(!open);
+                                        }
+                                    }}
+                                    onClick={() => {
+                                        if (router.pathname === pathname) {
+                                            setOpen(!open);
+                                        }
+                                    }}
                                 >
                                     {title}
                                 </a>
                             </Link>
                         ))}
-                        {/*<a className={styles.mainNavLogOutLinkMobile}>Log Out</a>*/}
+                        <a className={styles.mainNavLogOutLinkMobile}>Log In</a>
                     </div>
                 </div>
             </nav>

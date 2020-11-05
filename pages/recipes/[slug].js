@@ -1,25 +1,21 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { gql } from 'apollo-server-micro';
-// import client from '../../graphql';
+import { gql } from 'apollo-server-micro';
+import client from '../../graphql';
 import Layout from '../../components/layout';
-import Heart from '../../components/heart';
+// import Heart from '../../components/heart';
 
 export default function Recipe({
+    slug,
     name,
     description,
     instructions,
     ingredients,
-    image,
     activeTime,
     totalTime,
     serves,
     level,
-    // tags,
-    // reviews,
-    authorFirstName,
-    authorLastName,
-    liked,
 }) {
     return (
         <Layout
@@ -29,13 +25,13 @@ export default function Recipe({
         >
             <div>
                 <div>
-                    <img src={`/../${image}`} alt={name} className="header-image" />
+                    <img src={`/../${slug}.jpg`} alt={name} className="header-image" />
                     <div className="container">
                         <h4 className="headingXl title">{name}</h4>
-                        <Heart liked={liked} />
+                        {/*<Heart liked={true} />
                         <h5 className="headingSm subtitle">
-                            {authorFirstName} {authorLastName}
-                        </h5>
+                            {firstName} {lastName}
+                        </h5>*/}
                         <p>{description}</p>
                         <div className="information">
                             <div>
@@ -166,7 +162,7 @@ export default function Recipe({
 
 Recipe.propTypes = {
     name: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -174,90 +170,28 @@ Recipe.propTypes = {
     totalTime: PropTypes.string.isRequired,
     serves: PropTypes.string.isRequired,
     level: PropTypes.string.isRequired,
-    // tags: PropTypes.arrayOf(PropTypes.object).isRequired,
-    // reviews: PropTypes.arrayOf(PropTypes.object).isRequired,
-    authorFirstName: PropTypes.string.isRequired,
-    authorLastName: PropTypes.string.isRequired,
-    liked: PropTypes.bool.isRequired,
 };
 
 export async function getServerSideProps({ params }) {
-    const HARD_CODED = {
-        'pecan-dreams': {
-            name: 'Pecan Dreams',
-        },
-        'strawberry-tart': {
-            name: 'Strawberry Tart',
-        },
-        'rice-pudding': {
-            name: 'Rice Pudding',
-        },
-        'strawberry-shortcake': {
-            name: 'Strawberry Shortcake',
-        },
-        'banana-bread': {
-            name: 'Banana Bread',
-        },
-        'myriams-cake': {
-            name: 'Myriams Cake',
-        },
-    };
-    // const userId = 0;
-    // const { data } = await client.query({
-    //     query: gql`{
-    //         recipeBySlug(slug: "${params.slug}") {
-    //             id,
-    //             name,
-    //             description,
-    //             instructions,
-    //             ingredients,
-    //             active_time,
-    //             total_time,
-    //             serves,
-    //             level,
-    //             image,
-    //             tags {
-    //                 value,
-    //             },
-    //             reviews {
-    //                 review,
-    //                 comment,
-    //                 user {
-    //                     first_name,
-    //                     last_name,
-    //                 },
-    //             },
-    //             user {
-    //                 first_name,
-    //                 last_name,
-    //             },
-    //             liked(user_id: ${ userId }) {
-    //                 value,
-    //             },
-    //         },
-    //     }`,
-    // });
-    // const ingredients = data.recipeBySlug.ingredients.split('\\n');
-    // const instructions = data.recipeBySlug.instructions.split('\\n');
-    const ingredients = ['1 cup butter', '2 cups flour', '2 tsp baking powder'];
-    const instructions = ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'];
-    const description = 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English.';
+    const { data } = await client.query({
+        query: gql`{
+            recipeBySlug(slug: "${params.slug}") {
+                name,
+                slug,
+                description,
+                instructions,
+                ingredients,
+                activeTime,
+                totalTime,
+                serves,
+                level
+            }
+        }`,
+    });
+
     return {
         props: {
-            name: HARD_CODED[params.slug].name,
-            image: `${params.slug}.jpg`,
-            description,
-            ingredients,
-            instructions,
-            activeTime: '1 hour',
-            totalTime: '2 hours',
-            serves: '8',
-            level: 'Intermediate',
-            // tags: data.recipeBySlug.tags,
-            // reviews: data.recipeBySlug.reviews,
-            authorFirstName: 'Megan',
-            authorLastName: 'Smith',
-            liked: true,
+            ...data.recipeBySlug,
         },
     };
 }
