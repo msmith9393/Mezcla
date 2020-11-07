@@ -2,9 +2,9 @@
 import { gql, ApolloServer } from 'apollo-server-micro';
 import Dataloader from 'dataloader';
 import { makeExecutableSchema } from 'graphql-tools';
-import { MongoClient } from 'mongodb'
+import { MongoClient } from 'mongodb';
 
-require('dotenv').config()
+require('dotenv').config();
 
 const typeDefs = gql`
     type Query {
@@ -36,7 +36,7 @@ const typeDefs = gql`
         modifiedAt: String!
         ownerId: ID!
     }
-`
+`;
 // recipesByUser(user_id: Int, first: Int = 10, skip: Int = 0): [Recipe!]!
 // favoriteRecipes(user_id: Int, first: Int = 10, skip: Int = 0): [Liked!]!
 //
@@ -48,7 +48,7 @@ const resolvers = {
                 .collection('users')
                 .find()
                 .toArray()
-                .then((data) => data)
+                .then((data) => data);
         },
         recipes(_parent, args, context) {
             return context.db
@@ -64,8 +64,8 @@ const resolvers = {
                 .collection('recipes')
                 .findOne({ slug: args.slug })
                 .then((data) => data);
-        }
-    }
+        },
+    },
 //         recipes: (_parent, args, _context) => db
 //             .select('*')
 //             .from('recipes')
@@ -148,8 +148,8 @@ const loader = {
 };
 
 const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 });
 
 let db;
@@ -164,7 +164,7 @@ const apolloServer = new ApolloServer({
                     {
                         useNewUrlParser: true,
                         useUnifiedTopology: true,
-                    }
+                    },
                 );
 
                 if (!dbClient.isConnected()) {
