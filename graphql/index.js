@@ -4,7 +4,7 @@ const cache = new InMemoryCache();
 
 const baseUrl = process.env.ENVIRONMENT === 'local'
     ? 'http://localhost:3000'
-    : 'https://mezcla.dev';
+    : undefined;
 
 const link = createHttpLink({
     uri: `${baseUrl}/api/graphql`,

@@ -6,7 +6,7 @@ import Layout from '../components/layout';
 import RecipeList from '../components/recipe-list';
 import Search from '../components/search';
 
-export default function Recipes({ recipes }) {
+export default function Home({ recipes }) {
     return (
         <Layout
             pageTitle="All Recipes"
@@ -21,7 +21,7 @@ export default function Recipes({ recipes }) {
     );
 }
 
-Recipes.propTypes = {
+Home.propTypes = {
     recipes: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
