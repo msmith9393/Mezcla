@@ -73,9 +73,9 @@ export default function Recipe({
                     {`
                     .header-image {
                         display: block;
-                        max-width: 100%;
-                        margin: 0 auto;
-
+                        max-width: calc(100% + 32px);
+                        margin-left: -16px;
+                        margin-right: -16px;
                     }
 
                     .container {
@@ -168,7 +168,7 @@ Recipe.propTypes = {
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
     activeTime: PropTypes.string.isRequired,
     totalTime: PropTypes.string.isRequired,
-    serves: PropTypes.string.isRequired,
+    serves: PropTypes.number.isRequired,
     level: PropTypes.string.isRequired,
 };
 
