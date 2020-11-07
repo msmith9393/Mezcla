@@ -9,14 +9,10 @@ export default function RecipeList({ recipes }) {
             {recipes.map(({
                 name,
                 slug,
-                image,
-                liked,
             }) => (
                 <RecipeCard
                     key={slug}
                     name={name}
-                    image={image}
-                    liked={liked}
                     slug={slug}
                 />
             ))}

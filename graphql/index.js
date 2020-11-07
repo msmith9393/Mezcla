@@ -2,7 +2,7 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const cache = new InMemoryCache();
 
-const baseURL = process.env.ENVIRONMENT === 'local'
+const baseUrl = process.env.ENVIRONMENT === 'local'
     ? 'http://localhost:3000'
     : 'https://mezcla.dev';
 

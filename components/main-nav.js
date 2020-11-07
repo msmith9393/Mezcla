@@ -7,10 +7,10 @@ import Search from './search';
 
 export const mainNavLinks = [
     // { pathname: '/coming-soon', title: 'Coming Soon' },
-    { pathname: '/recipes', title: 'All Recipes' },
-    { pathname: '/favorites', title: 'Favorites' },
+    // { pathname: '/recipes', title: 'All Recipes' },
     // { pathname: '/my-recipes', title: 'My Recipes' },
     // { pathname: '/create', title: 'Create' },
+    { pathname: '/about', title: 'About' },
 ];
 
 export default function MainNav() {
@@ -78,7 +78,9 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        <a className={styles.mainNavLinkDesktop}>Log In</a>
+                        <Link href="/log-in">
+                            <a className={styles.mainNavLinkDesktop}>Log In</a>
+                        </Link>
                     </div>
                 </div>
                 <div className={classNames(styles.mainNavLinksMobileContainer, {
@@ -111,7 +113,9 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        <a className={styles.mainNavLogOutLinkMobile}>Log In</a>
+                        <Link href="/log-in">
+                            <a className={styles.mainNavLogOutLinkMobile}>Log In</a>
+                        </Link>
                     </div>
                 </div>
             </nav>
