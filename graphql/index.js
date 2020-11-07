@@ -2,12 +2,8 @@ import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 const cache = new InMemoryCache();
 
-const baseUrl = process.env.ENVIRONMENT === 'local'
-    ? 'http://localhost:3000'
-    : 'https://mezcla.dev';
-
 const link = createHttpLink({
-    uri: `${baseUrl}/api/graphql`,
+    uri: `${process.env.BASE_URL}/api/graphql`,
 });
 
 const client = new ApolloClient({
