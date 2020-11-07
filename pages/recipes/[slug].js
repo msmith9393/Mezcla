@@ -78,6 +78,13 @@ export default function Recipe({
                         margin-right: -16px;
                     }
 
+                    @media (min-width: 1200px) {
+                        .header-image {
+                            margin: 0 auto;
+                            max-width: 100%;
+                        }
+                    }
+
                     .container {
                         max-width: 1200px;
                         margin: 0 auto;
