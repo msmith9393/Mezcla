@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { signin, signout, useSession } from 'next-auth/client';
 import Link from 'next/link';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
@@ -16,6 +17,10 @@ export const mainNavLinks = [
 export default function MainNav() {
     const router = useRouter();
     const [open, setOpen] = useState(false);
+    const [session, loading] = useSession();
+
+    // console.log("SESSION", session);
+    // console.log("LOADING", loading);
 
     React.useEffect(() => {
         if (open) {
@@ -78,9 +83,34 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        <Link href="/log-in">
-                            <a className={styles.mainNavLinkDesktop}>Log In</a>
-                        </Link>
+                        {!session && <Link href="/api/auth/signin">
+                            <a
+                                role='button'
+                                tabIndex='0'
+                                onKeyPress={(e) => {
+                                    e.preventDefault();
+                                    signin();
+                                }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    signin();
+                                }}
+                                className={styles.mainNavLinkDesktop}>Log In</a>
+                        </Link>}
+                        {session && <Link href="/api/auth/signout">
+                            <a
+                                role='button'
+                                tabIndex='0'
+                                onKeyPress={(e) => {
+                                    e.preventDefault();
+                                    signout();
+                                }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    signout();
+                                }}
+                                className={styles.mainNavLinkDesktop}>Log Out</a>
+                        </Link>}
                     </div>
                 </div>
                 <div className={classNames(styles.mainNavLinksMobileContainer, {
