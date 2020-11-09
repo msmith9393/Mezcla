@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import MainNav from './main-nav';
-import Footer from './footer';
 
 export default function Layout({
     children,
@@ -17,10 +16,15 @@ export default function Layout({
                 <meta name="og:title" content={pageTitle} />
                 <meta name="description" content={pageDescription} />
                 <meta property="og:image" content={image} />
+                <link
+                    rel="preload"
+                    href="/fonts/hello-honey.otf"
+                    as="font"
+                    type="otf"
+                />
             </Head>
             <MainNav />
             <main className="main">{children}</main>
-            <Footer />
         </div>
     );
 }

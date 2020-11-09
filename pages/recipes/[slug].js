@@ -126,7 +126,7 @@ export default function Recipe({
 
                     .list {
                         width: 300px;
-                        border-right: 1px solid #2C2C2C;
+                        border-right: 1px solid #003366;
                         padding-right: 16px;
                     }
 
@@ -152,7 +152,7 @@ export default function Recipe({
                             width: initial;
                             text-align: center;
                             border-right: none;
-                            border-bottom: 1px solid #2C2C2C;
+                            border-bottom: 1px solid #003366;
                             padding-bottom: 16px;
                         }
 

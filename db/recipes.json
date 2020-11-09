@@ -1,0 +1,31 @@
+[{
+    "name": "Berry Crisp",
+    "slug": "berry-crisp",
+    "description": "This is my favorite new dessert to make every time I go visit my parents. You can add which ever berries you like the best, but I like the mixture of raspberries, blackberries, and blueberries.",
+    "instructions": [
+        "Preheat the oven to 350 degrees Fahrenheit",
+        "In a large bowl add all of the berries, 1/4 cup sugar, 1/4 cup flour, and cinnamon. Mix to combine and let sit.",
+        "In another bowl combine 1/2 cups flour, 1/4 cup granulated sugar, light brown sugar and oatmeal. Mix to combine.",
+        "Add the butter and with clean hands, mix until the butter is resembles a light crumb mixture.",
+        "Pour the berries into a 2-quart baking dish. Top with the butter flour mixture.",
+        "Bake for 1 hour. Let cool for 15 minutes. Enjoy warm topped with Häagen-Dazs vanilla bean ice cream"
+    ],
+    "ingredients": [
+        "2 cups blueberries, rinsed",
+        "2 cups blackberries, rinsed",
+        "2 cups raspberries, rinsed",
+        "1/2 cups sugar, divided",
+        "3/4 cup flour, divided",
+        "1/4 tsp cinnamon",
+        "1/2 cup light brown sugar",
+        "1/2 teaspoon kosher salt",
+        "1 cup oatmeal",
+        "1 stick cold unsalted butter, diced"
+    ],
+    "activeTime": "30 minutes",
+    "totalTime": "1 hour 30 minutes",
+    "serves": 6,
+    "level": "easy",
+    "language": "en",
+    "author": "Megan Smith"
+}]

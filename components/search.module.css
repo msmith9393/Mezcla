@@ -10,7 +10,7 @@
 }
 
 .search {
-    border: 1px solid #1C1F4C;
+    border: 1px solid #003366;
     -webkit-appearance: none;
     border-bottom-right-radius: 0;
     border-top-right-radius: 0;
@@ -23,7 +23,7 @@
 }
 
 .submit {
-    background: #1C1F4C;
+    background: #003366;
     background-image: url(../public/search.svg);
     background-repeat: no-repeat;
     background-position: center center;

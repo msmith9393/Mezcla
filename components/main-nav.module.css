@@ -1,7 +1,7 @@
 .mainNav {
     height: 64px;
     width: 100%;
-    background: #FEC20F;
+    background: #FFED86;
     margin: 0;
     display: flex;
     position: fixed;
@@ -51,12 +51,12 @@
 .mainNavLinkDesktopActive,
 .mainNavLinkDesktop:focus,
 .mainNavLinkDesktop:hover {
-    text-shadow: 0.015em 0.015em 0.015em #2C2C2C;
-    border-bottom: 2px solid #037272;
+    text-shadow: 0.015em 0.015em 0.015em #003366;
+    border-bottom: 2px solid #2EC3CC;
 }
 
 .mainNavLinkMobileActive {
-    text-shadow: 0.015em 0.015em 0.015em #2C2C2C;
+    text-shadow: 0.015em 0.015em 0.015em #003366;
 }
 
 .mainNavLinksMobileContainer {
@@ -68,7 +68,7 @@
     height: 100%;
     margin-top: 64px;
     z-index: 9999;
-    background: #F4F5FA;
+    background: #F9F9F9;
     min-height: calc(100vh - 64px);
     transition: transform 0.3s ease-in-out;
 }
@@ -90,7 +90,7 @@
 
 .mainNavLinkMobile,
 .mainNavLogOutLinkMobile {
-    border-bottom: 1px solid #2C2C2C;
+    border-bottom: 1px solid #003366;
     margin: 0 16px;
     height: 100px;
     line-height: 100px;
@@ -110,7 +110,7 @@
     width: 100px;
     margin-left: 64px;
     border: 2px solid transparent;
-    padding: 8px 0;
+    padding: 4px 0;
 }
 
 @media (max-width: 768px) {
@@ -120,5 +120,5 @@
 }
 
 .logo:focus img {
-    border: 2px solid #037272;
+    border: 2px solid #00848C;
 }

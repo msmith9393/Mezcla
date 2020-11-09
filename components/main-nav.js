@@ -6,11 +6,16 @@ import { useRouter } from 'next/router';
 import styles from './main-nav.module.css';
 import Search from './search';
 
-export const mainNavLinks = [
-    // { pathname: '/coming-soon', title: 'Coming Soon' },
-    // { pathname: '/recipes', title: 'All Recipes' },
+export const mainNavLinksLoggedOut = [
+    { pathname: '/', title: 'Recipes' },
+    { pathname: '/about', title: 'About' },
+];
+
+export const mainNavLinksLoggedIn = [
+    { pathname: '/', title: 'Recipes' },
     // { pathname: '/my-recipes', title: 'My Recipes' },
-    // { pathname: '/create', title: 'Create' },
+    // { pathname: '/favorites', title: 'Favorites' },
+    { pathname: '/create', title: 'Create' },
     { pathname: '/about', title: 'About' },
 ];
 
@@ -19,8 +24,9 @@ export default function MainNav() {
     const [open, setOpen] = useState(false);
     const [session, loading] = useSession();
 
-    // console.log("SESSION", session);
-    // console.log("LOADING", loading);
+    const mainNavLinks = session
+        ? mainNavLinksLoggedIn
+        : mainNavLinksLoggedOut;
 
     React.useEffect(() => {
         if (open) {
@@ -42,6 +48,12 @@ export default function MainNav() {
             window.removeEventListener('resize', closeMainNav);
         };
     });
+
+    if (loading) {
+        return (
+            <div>Loading...</div>
+        );
+    }
 
     return (
         <header>
@@ -83,34 +95,44 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        {!session && <Link href="/api/auth/signin">
-                            <a
-                                role='button'
-                                tabIndex='0'
-                                onKeyPress={(e) => {
-                                    e.preventDefault();
-                                    signin();
-                                }}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    signin();
-                                }}
-                                className={styles.mainNavLinkDesktop}>Log In</a>
-                        </Link>}
-                        {session && <Link href="/api/auth/signout">
-                            <a
-                                role='button'
-                                tabIndex='0'
-                                onKeyPress={(e) => {
-                                    e.preventDefault();
-                                    signout();
-                                }}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    signout();
-                                }}
-                                className={styles.mainNavLinkDesktop}>Log Out</a>
-                        </Link>}
+                        {!session && (
+                            <Link href="/api/auth/signin">
+                                <a
+                                    role="button"
+                                    tabIndex="0"
+                                    onKeyPress={(e) => {
+                                        e.preventDefault();
+                                        signin();
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        signin();
+                                    }}
+                                    className={styles.mainNavLinkDesktop}
+                                >
+                                    Log In
+                                </a>
+                            </Link>
+                        )}
+                        {session && (
+                            <Link href="/api/auth/signout">
+                                <a
+                                    role="button"
+                                    tabIndex="0"
+                                    onKeyPress={(e) => {
+                                        e.preventDefault();
+                                        signout();
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        signout();
+                                    }}
+                                    className={styles.mainNavLinkDesktop}
+                                >
+                                    Log Out
+                                </a>
+                            </Link>
+                        )}
                     </div>
                 </div>
                 <div className={classNames(styles.mainNavLinksMobileContainer, {
@@ -143,9 +165,44 @@ export default function MainNav() {
                                 </a>
                             </Link>
                         ))}
-                        <Link href="/log-in">
-                            <a className={styles.mainNavLogOutLinkMobile}>Log In</a>
-                        </Link>
+                        {!session && (
+                            <Link href="/api/auth/signin">
+                                <a
+                                    role="button"
+                                    tabIndex="0"
+                                    onKeyPress={(e) => {
+                                        e.preventDefault();
+                                        signin();
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        signin();
+                                    }}
+                                    className={styles.mainNavLinkMobile}
+                                >
+                                    Log In
+                                </a>
+                            </Link>
+                        )}
+                        {session && (
+                            <Link href="/api/auth/signout">
+                                <a
+                                    role="button"
+                                    tabIndex="0"
+                                    onKeyPress={(e) => {
+                                        e.preventDefault();
+                                        signout();
+                                    }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        signout();
+                                    }}
+                                    className={styles.mainNavLinkMobile}
+                                >
+                                    Log Out
+                                </a>
+                            </Link>
+                        )}
                     </div>
                 </div>
             </nav>

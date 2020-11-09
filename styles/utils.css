@@ -1,17 +1,41 @@
-/* $orangeYellow = #FEC20F;
-$blueGreen = #037272
-$lightGrey = #F4F5FA
-$darkGrey = #2C2C2C
-$darkBlue = #1C1F4C
+/* $yellow = #FFED86;
+$lightGrey = #F9F9F9
+$darkBlue = #≈
 $teal: #00848C
 $hoverBlue= #2EC3CC */
 
+@font-face {
+  font-family: "HelloHoney";
+  src: url("/fonts/hello-honey.otf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.headingSpecial {
+    font-family: HelloHoney;
+    font-size: 3rem;
+    margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .headingSpecial {
+        font-size: 2.5rem;
+    }
+}
+
 .headingXl {
-    font-size: 2rem;
-    line-height: 1.3;
-    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 2.5;
     letter-spacing: -0.05rem;
     margin: 1rem 0;
+}
+
+@media (max-width: 768px) {
+    .headingXl {
+        font-size: 1.5rem;
+        line-height: 1.5;
+    }
 }
 
 .headingLg {
@@ -41,8 +65,8 @@ $hoverBlue= #2EC3CC */
 }
 
 .link {
-    border-bottom: 1px solid #037272;
-    color: #037272;
+    border-bottom: 1px solid #00848C;
+    color: #00848C;
     cursor: pointer;
 }
 
@@ -54,12 +78,13 @@ $hoverBlue= #2EC3CC */
 .line-break {
     border: 1px solid #2EC3CC;
     margin: 32px 0;
+    width: 100%;
 }
 
 .link-button,
 .button {
-    border: 2px solid #037272;
-    color: #037272;
+    border: 2px solid #00848C;
+    color: #00848C;
     border-radius: 5px;
     height: 44px;
     background: transparent;
@@ -75,7 +100,7 @@ $hoverBlue= #2EC3CC */
 }
 
 .button-filled {
-    background: #037272;
+    background: #00848C;
     color: white;
 }
 
@@ -92,4 +117,8 @@ $hoverBlue= #2EC3CC */
 .button-filled:hover {
     color: white;
     background: #2EC3CC;
+}
+
+strong {
+    font-weight: 800;
 }

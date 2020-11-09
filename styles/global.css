@@ -23,9 +23,9 @@ html {
 }
 
 .main {
-    min-height: calc(100vh - 168px);
-    background: #F4F5FA;
-    color: #1C1F4C;
+    min-height: calc(100vh - 80px);
+    background: #F9F9F9;
+    color: #003366;
     padding: 16px;
     padding-top: 64px;
 }
@@ -47,7 +47,7 @@ a {
 body {
     background: white;
     line-height: 1;
-    color: #2C2C2C;
+    color: #003366;
     font-family: Open Sans, sans-serif;
     line-height: 1.6;
     font-size: 1em;
