@@ -34,7 +34,7 @@ const typeDefs = gql`
         language: String!
         createdAt: String!
         modifiedAt: String!
-        ownerId: ID!
+        author: String!
     }
 `;
 // recipesByUser(user_id: Int, first: Int = 10, skip: Int = 0): [Recipe!]!

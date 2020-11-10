@@ -1,8 +1,10 @@
-/* $yellow = #FFED86;
+/*
+$yellow = #FFED86
 $lightGrey = #F9F9F9
-$darkBlue = #≈
-$teal: #00848C
-$hoverBlue= #2EC3CC */
+$darkBlue = #003366
+$teal = #00848C
+$hoverBlue= #2EC3CC
+*/
 
 @font-face {
   font-family: "HelloHoney";
@@ -16,6 +18,10 @@ $hoverBlue= #2EC3CC */
     font-family: HelloHoney;
     font-size: 3rem;
     margin: 1rem 0;
+}
+
+.no-margin {
+    margin: 0;
 }
 
 @media (max-width: 768px) {
@@ -84,10 +90,10 @@ $hoverBlue= #2EC3CC */
 .link-button,
 .button {
     border: 2px solid #00848C;
-    color: #00848C;
+    color: white;
     border-radius: 5px;
     height: 44px;
-    background: transparent;
+    background: #00848C;
     min-width: 150px;
     cursor: pointer;
     display: block;
@@ -111,7 +117,7 @@ $hoverBlue= #2EC3CC */
 .link-button:hover,
 .button:hover {
     border: 2px solid #2EC3CC;
-    color: #2EC3CC;
+    background: #2EC3CC;
 }
 
 .button-filled:hover {

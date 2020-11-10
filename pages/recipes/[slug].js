@@ -16,6 +16,7 @@ export default function Recipe({
     totalTime,
     serves,
     level,
+    author,
 }) {
     return (
         <Layout
@@ -28,10 +29,10 @@ export default function Recipe({
                     <img src={`/../${slug}.jpg`} alt={name} className="header-image" />
                     <div className="container">
                         <h4 className="headingXl title">{name}</h4>
-                        {/* <Heart liked={true} />
+                        {/* <Heart liked={true} />*/}
                         <h5 className="headingSm subtitle">
-                            {firstName} {lastName}
-                        </h5> */}
+                            {author}
+                        </h5>
                         <p>{description}</p>
                         <div className="information">
                             <div>
@@ -92,8 +93,6 @@ export default function Recipe({
                     }
 
                     .title {
-                        display: inline-block;
-                        padding-right: 8px;
                         margin-bottom: 0;
                     }
 
@@ -177,6 +176,7 @@ Recipe.propTypes = {
     totalTime: PropTypes.string.isRequired,
     serves: PropTypes.number.isRequired,
     level: PropTypes.string.isRequired,
+    author: PropTypes.string.isRequired,
 };
 
 export async function getServerSideProps({ params }) {
@@ -191,7 +191,8 @@ export async function getServerSideProps({ params }) {
                 activeTime,
                 totalTime,
                 serves,
-                level
+                level,
+                author
             }
         }`,
     });
