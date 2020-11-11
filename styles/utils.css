@@ -3,7 +3,8 @@ $yellow = #FFED86
 $lightGrey = #F9F9F9
 $darkBlue = #003366
 $teal = #00848C
-$hoverBlue= #2EC3CC
+$hoverBlue = #2EC3CC
+$red = #FF3333
 */
 
 @font-face {
@@ -123,6 +124,10 @@ $hoverBlue= #2EC3CC
 .button-filled:hover {
     color: white;
     background: #2EC3CC;
+}
+
+.button-with-icon {
+    position: relative;
 }
 
 strong {

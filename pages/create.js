@@ -1,12 +1,39 @@
 /* elint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
 import Layout from '../components/layout';
+import { useSession } from 'next-auth/client';
 import {
     NewRecipe,
     Ingredients,
     Instructions,
     FinalDetails,
 } from '../components/create-form';
+
+function getTime(hours, minutes) {
+    let result = '';
+
+    if (hours !== '0') {
+        result += hours;
+
+        if (hours === '1') {
+            result += ' hour';
+        } else {
+            result += ' hours';
+        }
+    }
+
+    if (minutes !== '0') {
+        result += ` ${minutes}`;
+
+        if (minutes === '1') {
+            result += ' minute';
+        } else {
+            result += ' minutes';
+        }
+    }
+
+    return result.trim();
+}
 
 export default function Create() {
     const [activeStep, setActiveStep] = useState(0);
@@ -20,42 +47,57 @@ export default function Create() {
     const [totalTimeHours, setTotalTimeHours] = useState('');
     const [totalTimeMinutes, setTotalTimeMinutes] = useState('');
     const [level, setLevel] = useState('easy');
+    const [session] = useSession();
+    const [error, setError] = useState(false);
 
     const steps = [
         {
             slug: 'new-recipe',
             stepTitle: 'New Recipe',
-            tagLine: "What should we call your new recipe? Tell us a little story about your recipe in the description!", Component: NewRecipe,
+            tagLine: "What should we call your new recipe? Tell us a little story about your recipe in the description!",
+            Component: NewRecipe,
             props: {
                 title,
                 description,
                 setTitle,
                 setDescription,
             },
+            validate: {
+                title,
+                description,
+            },
         },
         {
             slug: 'ingredients',
-            title: 'Ingredients',
+            stepTitle: 'Ingredients',
             tagLine: "List out all the delicious ingredients of your recipe on a new line!",
             Component: Ingredients,
             props: {
                 ingredients,
                 setIngredients,
             },
+            validate: {
+                ingredients,
+            },
         },
         {
             slug: 'instructions',
-            title: 'Instructions',
-            tagLine: "Instruct us how to prepare your masterpiece!", Component: Instructions,
+            stepTitle: 'Instructions',
+            tagLine: "Instruct us how to prepare your masterpiece!",
+            Component: Instructions,
             props: {
                 instructions,
                 setInstructions,
             },
+            validate: {
+                instructions,
+            },
         },
         {
             slug: 'final-details',
-            title: 'Final Details',
-            tagLine: 'Let\'s wrap up with a few final details!', Component: FinalDetails,
+            stepTitle: 'Final Details',
+            tagLine: 'Let\'s wrap up with a few final details!',
+            Component: FinalDetails,
             props: {
                 serves,
                 activeTimeHours,
@@ -69,13 +111,53 @@ export default function Create() {
                 setActiveTimeMinutes,
                 setTotalTimeMinutes,
             },
+            validate: {
+                serves,
+                activeTimeHours,
+                activeTimeMinutes,
+                totalTimeHours,
+                totalTimeMinutes,
+            },
         },
     ];
+
+    const hasError = () => {
+        const { validate } = steps[activeStep];
+        const keys = Object.keys(validate);
+
+        for (let i = 0; i < keys.length; i++) {
+            if (!validate[keys[i]]) {
+                setError(true);
+                return true;
+            }
+        }
+
+        setError(false);
+        return false;
+    }
 
     const submitForm = () => {
         if (activeStep !== steps.length - 1) {
             return;
         }
+        if (hasError()) {
+            return;
+        }
+
+        let activeTime = getTime(activeTimeHours, activeTimeMinutes);
+        let totalTime = getTime(totalTimeHours, totalTimeMinutes);
+
+        return {
+            name: title,
+            description,
+            instructions: instructions.split('\n'),
+            ingredients: ingredients.split('\n'),
+            activeTime,
+            totalTime,
+            serves: Number(serves),
+            level,
+            author: session.user.name,
+        };
     }
 
     return (
@@ -101,7 +183,9 @@ export default function Create() {
                                     className="image" />
                                     <h2 className="center headingSpecial no-margin">{stepTitle}</h2>
                                     <p className="center">{tagLine}</p>
-                                    <Component {...props} />
+                                    <Component
+                                        error={error}
+                                        {...props} />
                             </div>
                         );
                     })}
@@ -109,32 +193,74 @@ export default function Create() {
                         {activeStep !== 0 && (
                             <button
                                 type="button"
-                                className="button link-button"
+                                className="button link-button button-with-icon"
                                 onClick={(event) => {
                                     event.preventDefault();
                                     setActiveStep(activeStep - 1);
                                 }}>
-                                Previous
+                                <img
+                                    alt="previous icon"
+                                    src="/previous.png"
+                                    style={{
+                                        width: 24,
+                                        position: 'absolute',
+                                        top: 10,
+                                        left: 22,
+                                    }} />
+                                <span>Previous</span>
                             </button>
                         )}
                         {activeStep !== steps.length - 1 && (
                             <button
                                 type="button"
-                                className="button link-button"
+                                className="button link-button button-with-icon"
                                 onClick={(event) => {
                                     event.preventDefault();
+                                    if (hasError()) {
+                                        return;
+                                    }
+
                                     setActiveStep(activeStep + 1);
                                 }}>
-                                Next
+                                <span style={{
+                                    paddingRight: 16,
+                                }}>Next</span>
+                                <img
+                                    alt="next icon"
+                                    src="/next.png"
+                                    style={{
+                                        width: 24,
+                                        position: 'absolute',
+                                        right: 40,
+                                        top: 10,
+                                    }} />
                             </button>
                         )}
                         {activeStep === steps.length - 1 && (
                             <button
                                 type="button"
-                                className="button link-button"
+                                className="button link-button button-with-icon"
                                 onClick={submitForm}>
-                                Submit
+                                <span style={{
+                                    paddingRight: 24,
+                                }}>Submit</span>
+                                <img
+                                    alt="submit icon"
+                                    style={{
+                                        width: 34,
+                                        position: 'absolute',
+                                        top: 2,
+                                        right: 28,
+                                    }}
+                                    src="/submit.png" />
                             </button>
+                        )}
+                        {error && (
+                            <div style={{
+                                color: '#FF3333',
+                            }}>
+                                Please fill out all fields!
+                            </div>
                         )}
                     </div>
                 </form>

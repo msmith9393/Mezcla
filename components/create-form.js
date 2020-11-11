@@ -10,6 +10,7 @@ export function NewRecipe({
     description,
     setTitle,
     setDescription,
+    error,
 }) {
     const titleRef = React.createRef();
     const descriptionRef = React.createRef();
@@ -20,7 +21,9 @@ export function NewRecipe({
                 <input
                     type="text"
                     name="title"
-                    className={styles.input}
+                    className={classNames(styles.input, {
+                        [styles.inputError]: error && !title,
+                    })}
                     value={title}
                     ref={titleRef}
                     onChange={(event) => setTitle(event.target.value)} />
@@ -37,7 +40,9 @@ export function NewRecipe({
                 <textarea
                     type="text-area"
                     name="description"
-                    className={classNames(styles.input, styles.textArea)}
+                    className={classNames(styles.input, styles.textArea, {
+                        [styles.inputError]: error && !description,
+                    })}
                     value={description}
                     ref={descriptionRef}
                     onChange={(event) => setDescription(event.target.value)} />
@@ -60,11 +65,13 @@ NewRecipe.propTypes = {
     description: PropTypes.string.isRequired,
     setTitle: PropTypes.func.isRequired,
     setDescription: PropTypes.func.isRequired,
+    error: PropTypes.bool.isRequired,
 };
 
 export function Ingredients({
     ingredients,
     setIngredients,
+    error,
 }) {
     const ingredientsRef = React.createRef();
 
@@ -74,7 +81,9 @@ export function Ingredients({
                 <textarea
                     type="text-area"
                     name="ingredients"
-                    className={classNames(styles.input, styles.textArea)}
+                    className={classNames(styles.input, styles.textArea, {
+                        [styles.inputError]: error && !ingredients,
+                    })}
                     value={ingredients}
                     ref={ingredientsRef}
                     onChange={(event) => setIngredients(event.target.value)} />
@@ -94,11 +103,13 @@ export function Ingredients({
 Ingredients.propTypes = {
     ingredients: PropTypes.string.isRequired,
     setIngredients: PropTypes.func.isRequired,
+    error: PropTypes.bool.isRequired,
 };
 
 export function Instructions({
     instructions,
     setInstructions,
+    error,
 }) {
     const instructionsRef = React.createRef();
 
@@ -108,7 +119,9 @@ export function Instructions({
                 <textarea
                     type="text-area"
                     name="instructions"
-                    className={classNames(styles.input, styles.textArea)}
+                    className={classNames(styles.input, styles.textArea, {
+                        [styles.inputError]: error && !instructions,
+                    })}
                     value={instructions}
                     ref={instructionsRef}
                     onChange={(event) => setInstructions(event.target.value)} />
@@ -128,6 +141,7 @@ export function Instructions({
 Instructions.propTypes = {
     instructions: PropTypes.string.isRequired,
     setInstructions: PropTypes.func.isRequired,
+    error: PropTypes.bool.isRequired,
 };
 
 export function FinalDetails({
@@ -142,6 +156,7 @@ export function FinalDetails({
     setTotalTimeMinutes,
     setServes,
     setLevel,
+    error,
 }) {
     const activeTimeHoursRef = React.createRef();
     const activeTimeMinutesRef = React.createRef();
@@ -157,15 +172,18 @@ export function FinalDetails({
                     <div className={classNames(styles.inputContainer, styles.inputContainerSmall)}>
                         <input
                             type="number"
+                            min="0"
                             name="activeTimeHours"
-                            className={styles.input}
+                            className={classNames(styles.input, {
+                                [styles.inputError]: error && !activeTimeHours,
+                            })}
                             value={activeTimeHours}
                             ref={activeTimeHoursRef}
                             onChange={(event) => setActiveTimeHours(event.target.value)} />
                         <label
                             htmlFor="activeTimeHours"
                             className={classNames(styles.inputLabel, {
-                                [styles.inputLabelFocused]: !!Number(activeTimeHours),
+                                [styles.inputLabelFocused]: !!activeTimeHours,
                             })}
                             onClick={() => activeTimeHoursRef.current.focus()}>
                             Hours
@@ -174,15 +192,18 @@ export function FinalDetails({
                     <div className={classNames(styles.inputContainer, styles.inputContainerSmall)}>
                         <input
                             type="number"
+                            min="0"
                             name="activeTimeMinutes"
-                            className={styles.input}
+                            className={classNames(styles.input, {
+                                [styles.inputError]: error && !activeTimeMinutes,
+                            })}
                             value={activeTimeMinutes}
                             ref={activeTimeMinutesRef}
                             onChange={(event) => setActiveTimeMinutes(event.target.value)} />
                         <label
                             htmlFor="activeTimeMinutes"
                             className={classNames(styles.inputLabel, {
-                                [styles.inputLabelFocused]: !!Number(activeTimeMinutes),
+                                [styles.inputLabelFocused]: !!activeTimeMinutes,
                             })}
                             onClick={() => activeTimeMinutesRef.current.focus()}>
                             Mins
@@ -194,15 +215,18 @@ export function FinalDetails({
                     <div className={classNames(styles.inputContainer, styles.inputContainerSmall)}>
                         <input
                             type="number"
+                            min="0"
                             name="totalTimeHours"
-                            className={styles.input}
+                            className={classNames(styles.input, {
+                                [styles.inputError]: error && !totalTimeHours,
+                            })}
                             value={totalTimeHours}
                             ref={totalTimeHoursRef}
                             onChange={(event) => setTotalTimeHours(event.target.value)} />
                         <label
                             htmlFor="totalTimeHours"
                             className={classNames(styles.inputLabel, {
-                                [styles.inputLabelFocused]: !!Number(totalTimeHours),
+                                [styles.inputLabelFocused]: !!totalTimeHours,
                             })}
                             onClick={() => totalTimeHoursRef.current.focus()}>
                             Hours
@@ -211,15 +235,18 @@ export function FinalDetails({
                     <div className={classNames(styles.inputContainer, styles.inputContainerSmall)}>
                         <input
                             type="number"
+                            min="0"
                             name="totalTimeMinutes"
-                            className={styles.input}
+                            className={classNames(styles.input, {
+                                [styles.inputError]: error && !totalTimeMinutes,
+                            })}
                             value={totalTimeMinutes}
                             ref={totalTimeMinutesRef}
                             onChange={(event) => setTotalTimeMinutes(event.target.value)} />
                         <label
                             htmlFor="totalTimeMinutes"
                             className={classNames(styles.inputLabel, {
-                                [styles.inputLabelFocused]: !!Number(totalTimeMinutes),
+                                [styles.inputLabelFocused]: !!totalTimeMinutes,
                             })}
                             onClick={() => totalTimeMinutesRef.current.focus()}>
                             Mins
@@ -233,15 +260,18 @@ export function FinalDetails({
                     <div className={classNames(styles.inputContainer, styles.inputContainerSmall)}>
                         <input
                             type="number"
+                            min="1"
                             name="serves"
-                            className={styles.input}
+                            className={classNames(styles.input, {
+                                [styles.inputError]: error && !serves,
+                            })}
                             value={serves}
                             ref={servesRef}
                             onChange={(event) => setServes(event.target.value)} />
                         <label
                             htmlFor="serves"
                             className={classNames(styles.inputLabel, {
-                                [styles.inputLabelFocused]: !!Number(serves),
+                                [styles.inputLabelFocused]: !!serves,
                             })}
                             onClick={() => servesRef.current.focus()}>
                             Serves
@@ -271,11 +301,12 @@ FinalDetails.propTypes = {
     activeTimeMinutes: PropTypes.string.isRequired,
     totalTimeHours: PropTypes.string.isRequired,
     totalTimeMinutes: PropTypes.string.isRequired,
-    serves: PropTypes.number.isRequired,
+    serves: PropTypes.string.isRequired,
     setActiveTimeHours: PropTypes.func.isRequired,
     setActiveTimeMinutes: PropTypes.func.isRequired,
     setTotalTimeHours: PropTypes.func.isRequired,
     setTotalTimeMinutes: PropTypes.func.isRequired,
     setServes: PropTypes.func.isRequired,
     setLevel: PropTypes.func.isRequired,
+    error: PropTypes.bool.isRequired,
 };

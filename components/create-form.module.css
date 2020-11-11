@@ -46,6 +46,10 @@
     font-size: 10px;
 }
 
+.inputError {
+    border: 1px solid #FF3333;
+}
+
 .textArea {
     height: 200px;
     padding-top: 24px;
