@@ -1,13 +1,15 @@
-/* elint-disable react/jsx-props-no-spreading */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState } from 'react';
-import Layout from '../components/layout';
 import { useSession } from 'next-auth/client';
+import { useMutation, gql } from '@apollo/client';
+
 import {
     NewRecipe,
     Ingredients,
     Instructions,
     FinalDetails,
 } from '../components/create-form';
+import Layout from '../components/layout';
 
 function getTime(hours, minutes) {
     let result = '';
@@ -35,7 +37,16 @@ function getTime(hours, minutes) {
     return result.trim();
 }
 
+const CREATE_RECIPE = gql`
+    mutation createRecipe($name: String, $description: String, $ingredients: [String], $instructions: [String], $activeTime: String, $totalTime: String, $serves: String, $level: String, $author: String, $email: String) {
+        createRecipe(name: $name, description: $description, ingredients: $ingredients, instructions: $instructions, activeTime: $activeTime, totalTime: $totalTime, serves: $serves, level: $level, author: $author, email: $email) {
+            slug
+        }
+    }
+`;
+
 export default function Create() {
+    const [createRecipe] = useMutation(CREATE_RECIPE);
     const [activeStep, setActiveStep] = useState(0);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -54,7 +65,7 @@ export default function Create() {
         {
             slug: 'new-recipe',
             stepTitle: 'New Recipe',
-            tagLine: "What should we call your new recipe? Tell us a little story about your recipe in the description!",
+            tagLine: 'What should we call your new recipe? Tell us a little story about your recipe in the description!',
             Component: NewRecipe,
             props: {
                 title,
@@ -70,7 +81,7 @@ export default function Create() {
         {
             slug: 'ingredients',
             stepTitle: 'Ingredients',
-            tagLine: "List out all the delicious ingredients of your recipe on a new line!",
+            tagLine: 'List out all the delicious ingredients of your recipe on a new line!',
             Component: Ingredients,
             props: {
                 ingredients,
@@ -83,7 +94,7 @@ export default function Create() {
         {
             slug: 'instructions',
             stepTitle: 'Instructions',
-            tagLine: "Instruct us how to prepare your masterpiece!",
+            tagLine: 'Instruct us how to prepare your masterpiece!',
             Component: Instructions,
             props: {
                 instructions,
@@ -125,7 +136,7 @@ export default function Create() {
         const { validate } = steps[activeStep];
         const keys = Object.keys(validate);
 
-        for (let i = 0; i < keys.length; i++) {
+        for (let i = 0; i < keys.length; i += 1) {
             if (!validate[keys[i]]) {
                 setError(true);
                 return true;
@@ -134,7 +145,7 @@ export default function Create() {
 
         setError(false);
         return false;
-    }
+    };
 
     const submitForm = () => {
         if (activeStep !== steps.length - 1) {
@@ -144,21 +155,24 @@ export default function Create() {
             return;
         }
 
-        let activeTime = getTime(activeTimeHours, activeTimeMinutes);
-        let totalTime = getTime(totalTimeHours, totalTimeMinutes);
+        const activeTime = getTime(activeTimeHours, activeTimeMinutes);
+        const totalTime = getTime(totalTimeHours, totalTimeMinutes);
 
-        return {
-            name: title,
-            description,
-            instructions: instructions.split('\n'),
-            ingredients: ingredients.split('\n'),
-            activeTime,
-            totalTime,
-            serves: Number(serves),
-            level,
-            author: session.user.name,
-        };
-    }
+        createRecipe({
+            variables: {
+                name: title,
+                description,
+                instructions: instructions.split('\n'),
+                ingredients: ingredients.split('\n'),
+                activeTime,
+                totalTime,
+                serves,
+                level,
+                author: session.user.name,
+                email: session.user.email,
+            },
+        });
+    };
 
     return (
         <Layout
@@ -168,7 +182,9 @@ export default function Create() {
         >
             <div>
                 <form onSubmit={activeStep === steps.length - 1 ? submitForm : null}>
-                    {steps.map(({ stepTitle, slug, tagLine, Component, props }, index) => {
+                    {steps.map(({
+                        stepTitle, slug, tagLine, Component, props,
+                    }, index) => {
                         if (activeStep !== index) {
                             return null;
                         }
@@ -176,16 +192,19 @@ export default function Create() {
                         return (
                             <div
                                 key={slug}
-                                className="container">
+                                className="container"
+                            >
                                 <img
                                     src={`create-recipe/${slug}.png`}
                                     alt={`${stepTitle} icon`}
-                                    className="image" />
-                                    <h2 className="center headingSpecial no-margin">{stepTitle}</h2>
-                                    <p className="center">{tagLine}</p>
-                                    <Component
-                                        error={error}
-                                        {...props} />
+                                    className="image"
+                                />
+                                <h2 className="center headingSpecial no-margin">{stepTitle}</h2>
+                                <p className="center">{tagLine}</p>
+                                <Component
+                                    error={error}
+                                    {...props}
+                                />
                             </div>
                         );
                     })}
@@ -197,7 +216,8 @@ export default function Create() {
                                 onClick={(event) => {
                                     event.preventDefault();
                                     setActiveStep(activeStep - 1);
-                                }}>
+                                }}
+                            >
                                 <img
                                     alt="previous icon"
                                     src="/previous.png"
@@ -206,7 +226,8 @@ export default function Create() {
                                         position: 'absolute',
                                         top: 10,
                                         left: 22,
-                                    }} />
+                                    }}
+                                />
                                 <span>Previous</span>
                             </button>
                         )}
@@ -221,10 +242,14 @@ export default function Create() {
                                     }
 
                                     setActiveStep(activeStep + 1);
-                                }}>
+                                }}
+                            >
                                 <span style={{
                                     paddingRight: 16,
-                                }}>Next</span>
+                                }}
+                                >
+                                    Next
+                                </span>
                                 <img
                                     alt="next icon"
                                     src="/next.png"
@@ -233,17 +258,22 @@ export default function Create() {
                                         position: 'absolute',
                                         right: 40,
                                         top: 10,
-                                    }} />
+                                    }}
+                                />
                             </button>
                         )}
                         {activeStep === steps.length - 1 && (
                             <button
                                 type="button"
                                 className="button link-button button-with-icon"
-                                onClick={submitForm}>
+                                onClick={submitForm}
+                            >
                                 <span style={{
                                     paddingRight: 24,
-                                }}>Submit</span>
+                                }}
+                                >
+                                    Submit
+                                </span>
                                 <img
                                     alt="submit icon"
                                     style={{
@@ -252,13 +282,15 @@ export default function Create() {
                                         top: 2,
                                         right: 28,
                                     }}
-                                    src="/submit.png" />
+                                    src="/submit.png"
+                                />
                             </button>
                         )}
                         {error && (
                             <div style={{
                                 color: '#FF3333',
-                            }}>
+                            }}
+                            >
                                 Please fill out all fields!
                             </div>
                         )}

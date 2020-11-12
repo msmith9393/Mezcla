@@ -3,14 +3,20 @@ import { gql, ApolloServer } from 'apollo-server-micro';
 import Dataloader from 'dataloader';
 import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
+import uniqid from 'uniqid';
+
 
 require('dotenv').config();
 
 const typeDefs = gql`
     type Query {
-        recipes(first: Int = 10, skip: Int = 0): [Recipe!]!
+        recipes(first: Int = 20, skip: Int = 0): [Recipe!]!
         users: [User]!
         recipeBySlug(slug: String!): Recipe!
+    }
+
+    type Mutation {
+        createRecipe(name: String, description: String, instructions: [String], ingredients: [String], activeTime: String, totalTime: String, serves: String, level: String, author: String, email: String): Recipe
     }
 
     type User {
@@ -35,6 +41,7 @@ const typeDefs = gql`
         createdAt: String!
         modifiedAt: String!
         author: String!
+        email: String!
     }
 `;
 // recipesByUser(user_id: Int, first: Int = 10, skip: Int = 0): [Recipe!]!
@@ -63,6 +70,33 @@ const resolvers = {
             return context.db
                 .collection('recipes')
                 .findOne({ slug: args.slug })
+                .then((data) => data);
+        },
+    },
+    Mutation: {
+        createRecipe: async (_, params, context) => {
+            const date = Date.now();
+            const id = uniqid();
+            const slug = `${id}/${params.name.split(' ').join('-').toLowerCase()}`;
+
+            context.db
+                .collection('recipes')
+                .insertOne({
+                    slug,
+                    language: "en",
+                    createdAt: date,
+                    modifiedAt: date,
+                    ...params,
+                }, {
+                    writeConcern: {
+                        w : "majority",
+                        wtimeout : 100,
+                    },
+                });
+
+            return context.db
+                .collection('recipes')
+                .findOne({ slug })
                 .then((data) => data);
         },
     },

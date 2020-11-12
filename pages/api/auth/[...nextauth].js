@@ -11,7 +11,7 @@ const options = {
         }),
     ],
     database: process.env.MONGO_DB_URI,
-    debug: process.env.ENVIRONMENT === 'local',
+    // debug: process.env.ENVIRONMENT === 'local',
 };
 
 export default (req, res) => NextAuth(req, res, options);
