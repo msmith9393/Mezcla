@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/client';
 import { useMutation, gql } from '@apollo/client';
-
+import { useRouter } from 'next/router';
 import {
     NewRecipe,
     Ingredients,
@@ -46,6 +46,7 @@ const CREATE_RECIPE = gql`
 `;
 
 export default function Create() {
+    const router = useRouter();
     const [createRecipe] = useMutation(CREATE_RECIPE);
     const [activeStep, setActiveStep] = useState(0);
     const [title, setTitle] = useState('');
@@ -171,6 +172,10 @@ export default function Create() {
                 author: session.user.name,
                 email: session.user.email,
             },
+        }).then(({ data }) => {
+            const { slug } = data.createRecipe;
+
+            router.push(`/recipes/${slug}`);
         });
     };
 

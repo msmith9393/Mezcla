@@ -75,8 +75,7 @@ const resolvers = {
     Mutation: {
         createRecipe: async (_, params, context) => {
             const date = Date.now();
-            const id = uniqid();
-            const slug = `${id}/${params.name.split(' ').join('-').toLowerCase()}`;
+            const slug = uniqid();
 
             context.db
                 .collection('recipes')
