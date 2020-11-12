@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styles from './create-form.module.css';
 import classNames from 'classnames';
+import styles from './create-form.module.css';
 
 export function NewRecipe({
     title,
@@ -26,13 +26,15 @@ export function NewRecipe({
                     })}
                     value={title}
                     ref={titleRef}
-                    onChange={(event) => setTitle(event.target.value)} />
+                    onChange={(event) => setTitle(event.target.value)}
+                />
                 <label
                     htmlFor="title"
                     className={classNames(styles.inputLabel, {
                         [styles.inputLabelFocused]: !!title,
                     })}
-                    onClick={() => titleRef.current.focus()}>
+                    onClick={() => titleRef.current.focus()}
+                >
                     Title
                 </label>
             </div>
@@ -45,20 +47,21 @@ export function NewRecipe({
                     })}
                     value={description}
                     ref={descriptionRef}
-                    onChange={(event) => setDescription(event.target.value)} />
+                    onChange={(event) => setDescription(event.target.value)}
+                />
                 <label
                     htmlFor="description"
                     className={classNames(styles.inputLabel, {
                         [styles.inputLabelFocused]: !!description,
                     })}
-                    onClick={() => descriptionRef.current.focus()}>
+                    onClick={() => descriptionRef.current.focus()}
+                >
                     Description
                 </label>
             </div>
         </div>
     );
 }
-
 
 NewRecipe.propTypes = {
     title: PropTypes.string.isRequired,
@@ -86,13 +89,15 @@ export function Ingredients({
                     })}
                     value={ingredients}
                     ref={ingredientsRef}
-                    onChange={(event) => setIngredients(event.target.value)} />
+                    onChange={(event) => setIngredients(event.target.value)}
+                />
                 <label
                     htmlFor="ingredients"
                     className={classNames(styles.inputLabel, {
                         [styles.inputLabelFocused]: !!ingredients,
                     })}
-                    onClick={() => ingredientsRef.current.focus()}>
+                    onClick={() => ingredientsRef.current.focus()}
+                >
                     List out ingredients
                 </label>
             </div>
@@ -124,13 +129,15 @@ export function Instructions({
                     })}
                     value={instructions}
                     ref={instructionsRef}
-                    onChange={(event) => setInstructions(event.target.value)} />
+                    onChange={(event) => setInstructions(event.target.value)}
+                />
                 <label
                     htmlFor="instructions"
                     className={classNames(styles.inputLabel, {
                         [styles.inputLabelFocused]: !!instructions,
                     })}
-                    onClick={() => instructionsRef.current.focus()}>
+                    onClick={() => instructionsRef.current.focus()}
+                >
                     List out instructions
                 </label>
             </div>
@@ -179,13 +186,15 @@ export function FinalDetails({
                             })}
                             value={activeTimeHours}
                             ref={activeTimeHoursRef}
-                            onChange={(event) => setActiveTimeHours(event.target.value)} />
+                            onChange={(event) => setActiveTimeHours(event.target.value)}
+                        />
                         <label
                             htmlFor="activeTimeHours"
                             className={classNames(styles.inputLabel, {
                                 [styles.inputLabelFocused]: !!activeTimeHours,
                             })}
-                            onClick={() => activeTimeHoursRef.current.focus()}>
+                            onClick={() => activeTimeHoursRef.current.focus()}
+                        >
                             Hours
                         </label>
                     </div>
@@ -199,13 +208,15 @@ export function FinalDetails({
                             })}
                             value={activeTimeMinutes}
                             ref={activeTimeMinutesRef}
-                            onChange={(event) => setActiveTimeMinutes(event.target.value)} />
+                            onChange={(event) => setActiveTimeMinutes(event.target.value)}
+                        />
                         <label
                             htmlFor="activeTimeMinutes"
                             className={classNames(styles.inputLabel, {
                                 [styles.inputLabelFocused]: !!activeTimeMinutes,
                             })}
-                            onClick={() => activeTimeMinutesRef.current.focus()}>
+                            onClick={() => activeTimeMinutesRef.current.focus()}
+                        >
                             Mins
                         </label>
                     </div>
@@ -222,13 +233,15 @@ export function FinalDetails({
                             })}
                             value={totalTimeHours}
                             ref={totalTimeHoursRef}
-                            onChange={(event) => setTotalTimeHours(event.target.value)} />
+                            onChange={(event) => setTotalTimeHours(event.target.value)}
+                        />
                         <label
                             htmlFor="totalTimeHours"
                             className={classNames(styles.inputLabel, {
                                 [styles.inputLabelFocused]: !!totalTimeHours,
                             })}
-                            onClick={() => totalTimeHoursRef.current.focus()}>
+                            onClick={() => totalTimeHoursRef.current.focus()}
+                        >
                             Hours
                         </label>
                     </div>
@@ -242,13 +255,15 @@ export function FinalDetails({
                             })}
                             value={totalTimeMinutes}
                             ref={totalTimeMinutesRef}
-                            onChange={(event) => setTotalTimeMinutes(event.target.value)} />
+                            onChange={(event) => setTotalTimeMinutes(event.target.value)}
+                        />
                         <label
                             htmlFor="totalTimeMinutes"
                             className={classNames(styles.inputLabel, {
                                 [styles.inputLabelFocused]: !!totalTimeMinutes,
                             })}
-                            onClick={() => totalTimeMinutesRef.current.focus()}>
+                            onClick={() => totalTimeMinutesRef.current.focus()}
+                        >
                             Mins
                         </label>
                     </div>
@@ -267,13 +282,15 @@ export function FinalDetails({
                             })}
                             value={serves}
                             ref={servesRef}
-                            onChange={(event) => setServes(event.target.value)} />
+                            onChange={(event) => setServes(event.target.value)}
+                        />
                         <label
                             htmlFor="serves"
                             className={classNames(styles.inputLabel, {
                                 [styles.inputLabelFocused]: !!serves,
                             })}
-                            onClick={() => servesRef.current.focus()}>
+                            onClick={() => servesRef.current.focus()}
+                        >
                             Serves
                         </label>
                     </div>
@@ -284,7 +301,8 @@ export function FinalDetails({
                         <select
                             name="level"
                             className={styles.dropdown}
-                            onChange={(event) => setLevel(event.target.value)}>
+                            onChange={(event) => setLevel(event.target.value)}
+                        >
                             <option value="easy">easy</option>
                             <option value="medium">medium</option>
                             <option value="hard">hard</option>

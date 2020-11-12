@@ -29,7 +29,7 @@ export default function Recipe({
                     <img src={`/../${slug}.jpg`} alt={name} className="header-image" />
                     <div className="container">
                         <h4 className="headingXl title">{name}</h4>
-                        {/* <Heart liked={true} />*/}
+                        {/* <Heart liked={true} /> */}
                         <h5 className="headingSm subtitle">
                             {author}
                         </h5>

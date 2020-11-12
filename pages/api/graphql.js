@@ -5,7 +5,6 @@ import { makeExecutableSchema } from 'graphql-tools';
 import { MongoClient } from 'mongodb';
 import uniqid from 'uniqid';
 
-
 require('dotenv').config();
 
 const typeDefs = gql`
@@ -83,14 +82,14 @@ const resolvers = {
                 .collection('recipes')
                 .insertOne({
                     slug,
-                    language: "en",
+                    language: 'en',
                     createdAt: date,
                     modifiedAt: date,
                     ...params,
                 }, {
                     writeConcern: {
-                        w : "majority",
-                        wtimeout : 100,
+                        w: 'majority',
+                        wtimeout: 100,
                     },
                 });
 
