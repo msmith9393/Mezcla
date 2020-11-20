@@ -15,7 +15,7 @@ const typeDefs = gql`
     }
 
     type Mutation {
-        createRecipe(name: String, description: String, instructions: [String], ingredients: [String], activeTime: String, totalTime: String, serves: String, level: String, author: String, email: String): Recipe
+        createRecipe(name: String, description: String, instructions: [String], ingredients: [String], activeTime: String, totalTime: String, serves: String, level: String, author: String, email: String, imageUrl: String): Recipe
     }
 
     type User {
@@ -41,6 +41,7 @@ const typeDefs = gql`
         modifiedAt: String!
         author: String!
         email: String!
+        imageUrl: String!
     }
 `;
 // recipesByUser(user_id: Int, first: Int = 10, skip: Int = 0): [Recipe!]!

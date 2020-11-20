@@ -65,3 +65,33 @@
         width: 100%;
     }
 }
+
+.dropzone {
+    border: 1px dashed #003366;
+    border-radius: 10px;
+    height: 100px;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+
+.dropzone p {
+    line-height: 84px;
+    cursor: pointer;
+}
+
+.thumbContainer {
+    border-radius: 2px;
+    margin: 8px auto;
+    width: 120px;
+    height: 80px;
+    padding: 4px;
+}
+
+.thumbContainerWithPicture {
+    border: 1px solid #EAEAEA;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 100%;
+}

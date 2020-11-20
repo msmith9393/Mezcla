@@ -1,9 +1,66 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import styles from './create-form.module.css';
+
+export function Photo({
+    picture,
+    setPicture,
+}) {
+    const onDrop = useCallback((acceptedFiles) => {
+        if (acceptedFiles.length) {
+            setPicture(acceptedFiles[0]);
+        }
+    }, []);
+
+    const {
+        getRootProps,
+        getInputProps,
+        isDragActive,
+    } = useDropzone({
+        maxSize: 500000,
+        maxFiles: 1,
+        accept: 'image/*',
+        onDrop,
+    });
+
+    return (
+        <div>
+            <div
+                className={styles.dropzone}
+                {...getRootProps()}
+            >
+                <input {...getInputProps()} />
+                {
+                    isDragActive
+                        ? <p>Drop the file here ...</p>
+                        : <p>Drag and drop a file here, or click to select file</p>
+                }
+            </div>
+            <div className={classNames(styles.thumbContainer, {
+                [`${styles.thumbContainerWithPicture}`]: !!picture.name,
+            })}
+            >
+                {picture.name && (
+                    <img
+                        alt={picture.name}
+                        src={URL.createObjectURL(picture)}
+                        className={styles.thumbnail}
+                    />
+                )}
+            </div>
+        </div>
+    );
+}
+
+Photo.propTypes = {
+    picture: PropTypes.object.isRequired,
+    setPicture: PropTypes.func.isRequired,
+};
 
 export function NewRecipe({
     title,

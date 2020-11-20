@@ -133,3 +133,7 @@ $red = #FF3333
 strong {
     font-weight: 800;
 }
+
+.error {
+    color: #FF3333;
+}

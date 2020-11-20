@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { useSession } from 'next-auth/client';
 import { useMutation, gql } from '@apollo/client';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import {
+    Photo,
     NewRecipe,
     Ingredients,
     Instructions,
@@ -38,8 +40,8 @@ function getTime(hours, minutes) {
 }
 
 const CREATE_RECIPE = gql`
-    mutation createRecipe($name: String, $description: String, $ingredients: [String], $instructions: [String], $activeTime: String, $totalTime: String, $serves: String, $level: String, $author: String, $email: String) {
-        createRecipe(name: $name, description: $description, ingredients: $ingredients, instructions: $instructions, activeTime: $activeTime, totalTime: $totalTime, serves: $serves, level: $level, author: $author, email: $email) {
+    mutation createRecipe($name: String, $description: String, $ingredients: [String], $instructions: [String], $activeTime: String, $totalTime: String, $serves: String, $level: String, $author: String, $email: String, $imageUrl: String) {
+        createRecipe(name: $name, description: $description, ingredients: $ingredients, instructions: $instructions, activeTime: $activeTime, totalTime: $totalTime, serves: $serves, level: $level, author: $author, email: $email, imageUrl: $imageUrl) {
             slug
         }
     }
@@ -48,6 +50,7 @@ const CREATE_RECIPE = gql`
 export default function Create() {
     const router = useRouter();
     const [createRecipe] = useMutation(CREATE_RECIPE);
+    const [picture, setPicture] = useState({});
     const [activeStep, setActiveStep] = useState(0);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -63,6 +66,19 @@ export default function Create() {
     const [error, setError] = useState(false);
 
     const steps = [
+        {
+            slug: 'photo',
+            stepTitle: 'Photo Time',
+            tagLine: 'Max Size 500 KB, recommended dimensions 1200px X 795px',
+            Component: Photo,
+            props: {
+                picture,
+                setPicture,
+            },
+            validate: {
+                picture,
+            },
+        },
         {
             slug: 'new-recipe',
             stepTitle: 'New Recipe',
@@ -152,30 +168,53 @@ export default function Create() {
         if (activeStep !== steps.length - 1) {
             return;
         }
+
         if (hasError()) {
             return;
         }
 
-        const activeTime = getTime(activeTimeHours, activeTimeMinutes);
-        const totalTime = getTime(totalTimeHours, totalTimeMinutes);
+        axios.post('/api/upload', {
+            fileName: picture.name,
+            fileType: picture.type,
+        }).then((response) => {
+            const { returnData } = response.data.data;
+            const { signedRequest } = returnData;
+            const imageUrl = returnData.url;
+            console.log('IMAGE222', typeof imageUrl);
 
-        createRecipe({
-            variables: {
-                name: title,
-                description,
-                instructions: instructions.split('\n'),
-                ingredients: ingredients.split('\n'),
-                activeTime,
-                totalTime,
-                serves,
-                level,
-                author: session.user.name,
-                email: session.user.email,
-            },
-        }).then(({ data }) => {
-            const { slug } = data.createRecipe;
+            const options = {
+                headers: {
+                    'Content-Type': picture.type,
+                },
+            };
 
-            router.push(`/recipes/${slug}`);
+            axios.put(signedRequest, picture, options)
+                .then(() => {
+                    const activeTime = getTime(activeTimeHours, activeTimeMinutes);
+                    const totalTime = getTime(totalTimeHours, totalTimeMinutes);
+                    console.log('IMAGE', imageUrl);
+                    createRecipe({
+                        variables: {
+                            name: title,
+                            description,
+                            instructions: instructions.split('\n'),
+                            ingredients: ingredients.split('\n'),
+                            activeTime,
+                            totalTime,
+                            serves,
+                            level,
+                            author: session.user.name,
+                            email: session.user.email,
+                            imageUrl,
+                        },
+                    }).then(({ data }) => {
+                        const { slug } = data.createRecipe;
+
+                        router.push(`/recipes/${slug}`);
+                    });
+                });
+        }).catch((err) => {
+            console.error(`ERROR${ JSON.stringify(err)}`);
         });
     };
 
@@ -292,11 +331,10 @@ export default function Create() {
                             </button>
                         )}
                         {error && (
-                            <div style={{
-                                color: '#FF3333',
-                            }}
-                            >
-                                Please fill out all fields!
+                            <div className="error">
+                                {activeStep === 0
+                                    ? 'Please upload one file under 500 KB'
+                                    : 'Please fill out all fields!'}
                             </div>
                         )}
                     </div>

@@ -7,7 +7,6 @@ import Layout from '../../components/layout';
 // import Heart from '../../components/heart';
 
 export default function Recipe({
-    slug,
     name,
     description,
     instructions,
@@ -17,6 +16,7 @@ export default function Recipe({
     serves,
     level,
     author,
+    imageUrl,
 }) {
     return (
         <Layout
@@ -26,7 +26,7 @@ export default function Recipe({
         >
             <div>
                 <div>
-                    <img src={`/../${slug}.jpg`} alt={name} className="header-image" />
+                    <img src={imageUrl} alt={name} className="header-image" />
                     <div className="container">
                         <h4 className="headingXl title">{name}</h4>
                         {/* <Heart liked={true} /> */}
@@ -168,7 +168,6 @@ export default function Recipe({
 
 Recipe.propTypes = {
     name: PropTypes.string.isRequired,
-    slug: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     instructions: PropTypes.arrayOf(PropTypes.string).isRequired,
     ingredients: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -177,6 +176,7 @@ Recipe.propTypes = {
     serves: PropTypes.number.isRequired,
     level: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
 };
 
 export async function getServerSideProps({ params }) {
@@ -192,7 +192,8 @@ export async function getServerSideProps({ params }) {
                 totalTime,
                 serves,
                 level,
-                author
+                author,
+                imageUrl,
             }
         }`,
     });
