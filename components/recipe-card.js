@@ -8,11 +8,12 @@ import styles from './recipe-card.module.css';
 export default function RecipeCard({
     name,
     slug,
+    imageUrl,
 }) {
     return (
         <Link href={`/recipes/${slug}`}>
             <a className={styles.card}>
-                <img src={`/../${slug}.jpg`} alt={name} className={styles.image} />
+                <img src={imageUrl} alt={name} className={styles.image} />
                 <h4 className={classNames('headingLg', styles.title)}>{name}</h4>
                 {/* <Heart liked={liked} /> */}
             </a>
@@ -23,4 +24,5 @@ export default function RecipeCard({
 RecipeCard.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
 };

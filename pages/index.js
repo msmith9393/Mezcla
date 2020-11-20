@@ -31,6 +31,7 @@ export async function getServerSideProps() {
             recipes {
                 name,
                 slug,
+                imageUrl,
             },
         }`,
     });

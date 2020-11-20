@@ -9,11 +9,13 @@ export default function RecipeList({ recipes }) {
             {recipes.map(({
                 name,
                 slug,
+                imageUrl,
             }) => (
                 <RecipeCard
                     key={slug}
                     name={name}
                     slug={slug}
+                    imageUrl={imageUrl}
                 />
             ))}
         </div>
