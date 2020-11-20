@@ -180,7 +180,6 @@ export default function Create() {
             const { returnData } = response.data.data;
             const { signedRequest } = returnData;
             const imageUrl = returnData.url;
-            console.log('IMAGE222', typeof imageUrl);
 
             const options = {
                 headers: {
@@ -192,7 +191,7 @@ export default function Create() {
                 .then(() => {
                     const activeTime = getTime(activeTimeHours, activeTimeMinutes);
                     const totalTime = getTime(totalTimeHours, totalTimeMinutes);
-                    console.log('IMAGE', imageUrl);
+
                     createRecipe({
                         variables: {
                             name: title,

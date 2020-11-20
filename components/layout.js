@@ -16,12 +16,6 @@ export default function Layout({
                 <meta name="og:title" content={pageTitle} />
                 <meta name="description" content={pageDescription} />
                 <meta property="og:image" content={image} />
-                <link
-                    rel="preload"
-                    href="/fonts/hello-honey.otf"
-                    as="font"
-                    type="otf"
-                />
             </Head>
             <MainNav />
             <main className="main">{children}</main>

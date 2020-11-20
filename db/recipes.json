@@ -28,4 +28,36 @@
     "level": "easy",
     "language": "en",
     "author": "Megan Smith"
+},
+{
+    "name": "Pecan Dreams",
+    "description": "Delicious buttery cookies that are perfect for any day or any occasion! They stay fresh for a very long time and are always a big hit!",
+    "instructions": [
+        "Preheat the oven to 325 degrees.",
+        "In the bowl of an electric mixer, beat the butter on medium speed with a paddle attachment, until it is very creamy.",
+        "With the mixer on low, add 1 cup of sugar. Raise the speed to medium-high and beat until it is light and fluffy, about 3 minutes.",
+        "Add the vanilla and water and beat until incorporated. With the mixer off, scrape down the sides of the bowl.",
+        "Add all of the flour, then turn the mixer on low until the flour is just incorporated. Next, with the mixer off, add the pecans and turn the on low just until incorporated.",
+        "Using a small cookie scoop, scoop about one tablespoon of dough and roll with your hands to form smooth spheres.",
+        "Place cookies about one inch apart on a baking sheet. Bake cookies until golden brown on the bottom, about 40 minutes.",
+        "Roll the hot cookies in the ½ cup of sugar and let cool on a rack."
+    ],
+    "ingredients": [
+        "2 cups blueberries, rinsed",
+        "2 cups blackberries, rinsed",
+        "2 cups raspberries, rinsed",
+        "1/2 cups sugar, divided",
+        "3/4 cup flour, divided",
+        "1/4 tsp cinnamon",
+        "1/2 cup light brown sugar",
+        "1/2 teaspoon kosher salt",
+        "1 cup oatmeal",
+        "1 stick cold unsalted butter, diced"
+    ],
+    "activeTime": "30 minutes",
+    "totalTime": "1 hour 30 minutes",
+    "serves": 6,
+    "level": "easy",
+    "language": "en",
+    "author": "Megan Smith"
 }]
