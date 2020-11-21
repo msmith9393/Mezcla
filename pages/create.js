@@ -154,7 +154,7 @@ export default function Create() {
         const keys = Object.keys(validate);
 
         for (let i = 0; i < keys.length; i += 1) {
-            if (!validate[keys[i]]) {
+            if ((keys[i] === 'picture' && !picture.name) || !validate[keys[i]]) {
                 setError(true);
                 return true;
             }
