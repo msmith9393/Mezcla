@@ -87,6 +87,10 @@
     padding: 4px;
 }
 
+.thumbContainerWithError {
+    width: 100%;
+}
+
 .thumbContainerWithPicture {
     border: 1px solid #EAEAEA;
 }

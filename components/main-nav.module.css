@@ -40,6 +40,7 @@
     text-align: center;
     cursor: pointer;
     border-bottom: 2px solid transparent;
+    min-width: 46px;
 }
 
 @media (max-width: 992px) {

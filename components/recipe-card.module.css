@@ -19,4 +19,6 @@
 .title {
     display: inline-block;
     padding-right: 8px;
+    font-family: HelloHoney;
+    font-size: 2.5em;
 }

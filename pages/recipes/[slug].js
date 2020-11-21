@@ -94,6 +94,8 @@ export default function Recipe({
 
                     .title {
                         margin-bottom: 0;
+                        font-family: HelloHoney;
+                        font-size: 3em;
                     }
 
                     .subtitle {

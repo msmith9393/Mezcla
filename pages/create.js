@@ -47,8 +47,15 @@ const CREATE_RECIPE = gql`
     }
 `;
 
+const STATUS = {
+    STOPPED: 'stopped',
+    STARTED: 'started',
+    ERROR: 'error',
+};
+
 export default function Create() {
     const router = useRouter();
+    const [status, setStatus] = useState(STATUS.STOPPED);
     const [createRecipe] = useMutation(CREATE_RECIPE);
     const [picture, setPicture] = useState({});
     const [activeStep, setActiveStep] = useState(0);
@@ -173,6 +180,8 @@ export default function Create() {
             return;
         }
 
+        setStatus(STATUS.STARTED);
+
         axios.post('/api/upload', {
             fileName: picture.name,
             fileType: picture.type,
@@ -207,6 +216,8 @@ export default function Create() {
                             imageUrl,
                         },
                     }).then(({ data }) => {
+                        setStatus(STATUS.STOPPED);
+
                         const { slug } = data.createRecipe;
 
                         router.push(`/recipes/${slug}`);
@@ -214,6 +225,7 @@ export default function Create() {
                 });
         }).catch((err) => {
             console.error(`ERROR${ JSON.stringify(err)}`);
+            setStatus(STATUS.ERROR);
         });
     };
 
@@ -224,6 +236,17 @@ export default function Create() {
             image=""
         >
             <div>
+                {status === STATUS.STARTED && (
+                    <div className="message">
+                        <div className="message-container">
+                            <img
+                                className="loading-icon"
+                                src="/loading.gif"
+                                alt="loading icon"
+                            />
+                        </div>
+                    </div>
+                )}
                 <form onSubmit={activeStep === steps.length - 1 ? submitForm : null}>
                     {steps.map(({
                         stepTitle, slug, tagLine, Component, props,
@@ -336,6 +359,11 @@ export default function Create() {
                                     : 'Please fill out all fields!'}
                             </div>
                         )}
+                        {status === STATUS.ERROR && (
+                            <div className="error">
+                                Something went wrong, please try again later.
+                            </div>
+                        )}
                     </div>
                 </form>
                 <style jsx>
@@ -351,6 +379,30 @@ export default function Create() {
                         width: 100px;
                         display: block;
                         margin: 0 auto;
+                    }
+
+                    .message {
+                        position: fixed;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        top: 0;
+                        height 100vh;
+                        background: #003366;
+                        opacity: 40%;
+                        z-index: 2;
+                    }
+
+                    .message-container {
+                        position: relative;
+                        height: 100vh;
+                    }
+
+                    .loading-icon {
+                        width: 100px;
+                        position: absolute;
+                        left: calc(50% - 50px);
+                        top: calc(50% - 50px);
                     }
                 `}
                 </style>

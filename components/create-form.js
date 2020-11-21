@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -11,10 +11,14 @@ export function Photo({
     picture,
     setPicture,
 }) {
+    const [error, setError] = useState(false);
     const onDrop = useCallback((acceptedFiles) => {
         if (acceptedFiles.length) {
             setPicture(acceptedFiles[0]);
+            setError(false);
+            return;
         }
+        setError(true);
     }, []);
 
     const {
@@ -43,8 +47,12 @@ export function Photo({
             </div>
             <div className={classNames(styles.thumbContainer, {
                 [`${styles.thumbContainerWithPicture}`]: !!picture.name,
+                [`${styles.thumbContainerWithError}`]: error,
             })}
             >
+                {error && (
+                    <div className="error">Error with photo, please check size</div>
+                )}
                 {picture.name && (
                     <img
                         alt={picture.name}

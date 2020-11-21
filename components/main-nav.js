@@ -49,12 +49,6 @@ export default function MainNav() {
         };
     });
 
-    if (loading) {
-        return (
-            <div>Loading...</div>
-        );
-    }
-
     return (
         <header>
             <nav id="main-nav" aria-label="Main">
@@ -110,7 +104,7 @@ export default function MainNav() {
                                     }}
                                     className={styles.mainNavLinkDesktop}
                                 >
-                                    Log In
+                                    {loading ? '' : 'Log In'}
                                 </a>
                             </Link>
                         )}
@@ -129,7 +123,8 @@ export default function MainNav() {
                                     }}
                                     className={styles.mainNavLinkDesktop}
                                 >
-                                    Log Out
+                                    {loading ? '' : 'Log Out'}
+
                                 </a>
                             </Link>
                         )}
