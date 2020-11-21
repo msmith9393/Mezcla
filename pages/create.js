@@ -67,19 +67,6 @@ export default function Create() {
 
     const steps = [
         {
-            slug: 'photo',
-            stepTitle: 'Photo Time',
-            tagLine: 'Max Size 500 KB, recommended dimensions 1200px X 795px',
-            Component: Photo,
-            props: {
-                picture,
-                setPicture,
-            },
-            validate: {
-                picture,
-            },
-        },
-        {
             slug: 'new-recipe',
             stepTitle: 'New Recipe',
             tagLine: 'What should we call your new recipe? Tell us a little story about your recipe in the description!',
@@ -93,6 +80,19 @@ export default function Create() {
             validate: {
                 title,
                 description,
+            },
+        },
+        {
+            slug: 'photo',
+            stepTitle: 'Photo Time',
+            tagLine: 'Max Size 500 KB, recommended dimensions 1200px X 795px',
+            Component: Photo,
+            props: {
+                picture,
+                setPicture,
+            },
+            validate: {
+                picture,
             },
         },
         {
