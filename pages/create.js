@@ -331,7 +331,7 @@ export default function Create() {
                         )}
                         {error && (
                             <div className="error">
-                                {activeStep === 0
+                                {activeStep === 1
                                     ? 'Please upload one file under 500 KB'
                                     : 'Please fill out all fields!'}
                             </div>
