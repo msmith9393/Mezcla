@@ -31,4 +31,4 @@ yarn-error.log*
 .env.production
 .env.production.local
 
-/db/
+/db
